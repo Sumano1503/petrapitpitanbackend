@@ -15,13 +15,13 @@ func main(){
 	r.GET("/api/users/:id", usercontroller.Show)
 	r.POST("/api/user", usercontroller.Create)
 	r.PUT("/api/users/:id", usercontroller.Update)
-	r.DELETE("/api/users", usercontroller.Delete)
+	r.DELETE("/api/users/delete", usercontroller.Delete)
 
 	r.GET("/api/sepedas", sepedacontroller.Index)
 	r.GET("/api/sepeda/:id", sepedacontroller.Show)
 	r.POST("/api/sepeda", sepedacontroller.Create)
 	r.PUT("/api/sepeda/:id", sepedacontroller.Update)
-	r.DELETE("/api/sepeda", sepedacontroller.Delete)
+	r.DELETE("/api/sepeda/delete", sepedacontroller.Delete)
 
 	r.Run()
 }
