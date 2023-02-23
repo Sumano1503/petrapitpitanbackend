@@ -15,6 +15,10 @@ func Index(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"Sepeda": sepeda})
 }
 
+func Show(c *gin.Context) {
+	
+}
+
 func Create(c *gin.Context) {
 	
 }
@@ -27,6 +31,3 @@ func Delete(c *gin.Context) {
 	
 }
 
-func Show(c *gin.Context) {
-	
-}

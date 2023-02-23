@@ -12,13 +12,13 @@ func main(){
 	models.ConnectDataBase()
 
 	r.GET("/api/users", usercontroller.Index)
-	r.GET("/api/users/:id", usercontroller.Index)
+	r.GET("/api/users/:id", usercontroller.Show)
 	r.POST("/api/users", usercontroller.Create)
 	r.PUT("/api/users/:id", usercontroller.Update)
 	r.DELETE("/api/users", usercontroller.Delete)
 
 	r.GET("/api/sepeda", sepedacontroller.Index)
-	r.GET("/api/sepeda/:id", sepedacontroller.Index)
+	r.GET("/api/sepeda/:id", sepedacontroller.Show)
 	r.POST("/api/sepeda", sepedacontroller.Create)
 	r.PUT("/api/sepeda/:id", sepedacontroller.Update)
 	r.DELETE("/api/sepeda", sepedacontroller.Delete)
