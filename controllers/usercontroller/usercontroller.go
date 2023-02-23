@@ -9,10 +9,7 @@ import (
 )
 
 func Index(c *gin.Context) {
-	var users []models.User
-
-	models.DB.Find(&users)
-	c.JSON(http.StatusOK, gin.H{"data": users})
+	
 }
 
 func Show(c *gin.Context) {
@@ -35,7 +32,10 @@ func Show(c *gin.Context) {
 }
 
 func Create(c *gin.Context) {
-	
+	var users []models.User
+
+	models.DB.Find(&users)
+	c.JSON(http.StatusOK, gin.H{"data": users})
 	
 }
 
