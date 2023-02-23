@@ -11,17 +11,17 @@ func main(){
 	r := gin.Default();
 	models.ConnectDataBase()
 
-	r.GET("/api/users", usercontroller.Index)
-	r.GET("/api/users/:id", usercontroller.Show)
+	r.GET("/api/user", usercontroller.Index)
+	r.GET("/api/user/:id", usercontroller.Show)
 	r.POST("/api/user", usercontroller.Create)
-	r.PUT("/api/users/:id", usercontroller.Update)
-	r.DELETE("/api/users/delete", usercontroller.Delete)
+	r.PUT("/api/user/:id", usercontroller.Update)
+	r.DELETE("/api/user", usercontroller.Delete)
 
-	r.GET("/api/sepedas", sepedacontroller.Index)
+	r.GET("/api/sepeda", sepedacontroller.Index)
 	r.GET("/api/sepeda/:id", sepedacontroller.Show)
 	r.POST("/api/sepeda", sepedacontroller.Create)
 	r.PUT("/api/sepeda/:id", sepedacontroller.Update)
-	r.DELETE("/api/sepeda/delete", sepedacontroller.Delete)
+	r.DELETE("/api/sepeda", sepedacontroller.Delete)
 
 	r.Run()
 }
