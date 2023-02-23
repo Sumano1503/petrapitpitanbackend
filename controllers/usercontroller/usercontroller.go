@@ -12,7 +12,7 @@ func Index(c *gin.Context) {
 	var users []models.User
 
 	models.DB.Find(&users)
-	c.JSON(http.StatusOK, gin.H{"data": users})
+	c.JSON(http.StatusOK, gin.H{"user": users})
 }
 
 func Show(c *gin.Context) {
@@ -30,13 +30,20 @@ func Show(c *gin.Context) {
 		}
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": users})
+	c.JSON(http.StatusOK, gin.H{"user": users})
 	
 }
 
 func Create(c *gin.Context) {
-	
-	
+	var users models.User
+
+	if err := c.ShouldBindJSON(&users); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return 
+	}
+
+	models.DB.Create(&users)
+	c.JSON(http.StatusOK, gin.H{"user": users})
 }
 
 func Update(c *gin.Context) {
