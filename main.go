@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"net/http"
+
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpelanggarancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpeminjamancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailsepedahaltecontroller"
@@ -13,6 +16,12 @@ import (
 )
 
 func main(){
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "This is GolinuxCloud's http server")
+	})
+	http.ListenAndServe(":8080", nil)
+
+
 	r := gin.Default();
 	models.ConnectDataBase()
 
