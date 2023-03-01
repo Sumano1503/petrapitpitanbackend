@@ -19,7 +19,7 @@ func main(){
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "This is GolinuxCloud's http server")
 	})
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8000", nil)
 
 
 	r := gin.Default();
