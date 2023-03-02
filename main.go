@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
+	"time"
 
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpelanggarancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpeminjamancontroller"
@@ -13,14 +15,47 @@ import (
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/usercontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/models"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v4"
 )
 
-func main(){
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "This is GolinuxCloud's http server")
-	})
-	http.ListenAndServe(":8080", nil)
+var mySigningKey = []byte("mysupersecretpharse")
 
+func homepage(w http.ResponseWriter, r *http.Request){
+	validToken, err := generateJWT()
+	if err != nil {
+		fmt.Fprint(w, err.Error())
+	}
+
+	fmt.Fprint(w, validToken)
+}
+
+func generateJWT() (string, error){
+	token := jwt.New(jwt.SigningMethodHS256)
+
+	claims := token.Claims.(jwt.MapClaims)
+
+	claims["autorized"] = true
+	claims["user"] = "sumano"
+	claims["exp"] = time.Now().Add(time.Minute * 30).Unix()
+
+	tokenString, err := token.SignedString(mySigningKey)
+
+	if err != nil {
+		fmt.Errorf("something went wrong: %s", err.Error())
+		return "", err
+	}
+
+	return tokenString, nil
+}
+
+func handleRequest(){
+	http.HandleFunc("/", homepage)
+
+	log.Fatal(http.ListenAndServe(":8001", nil))
+}
+
+func main(){
+	handleRequest()
 
 	r := gin.Default();
 	models.ConnectDataBase()
