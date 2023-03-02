@@ -1,8 +1,6 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpelanggarancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpeminjamancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailsepedahaltecontroller"
@@ -63,5 +61,5 @@ func main(){
 	
 	r.Run()
 
-	http.ListenAndServe(":8000", nil)
+	// http.ListenAndServe(":8001", nil)
 }
