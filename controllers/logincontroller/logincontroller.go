@@ -7,7 +7,7 @@ import (
 )
 
 func GoogleLogin(res http.ResponseWriter, req *http.Request){
- googleConfig:=config.SetUpConfig()
+ googleConfig := config.SetUpConfig()
  url := googleConfig.AuthCodeURL("randomstate")
 
  http.Redirect(res, req, url, http.StatusSeeOther)

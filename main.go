@@ -16,8 +16,8 @@ import (
 )
 
 func main(){
-	http.HandleFunc("google/login", logincontroller.GoogleLogin)
-	http.HandleFunc("google/callback", logincontroller.GoogleCallback)
+	http.HandleFunc("/google/login", logincontroller.GoogleLogin)
+	http.HandleFunc("/google/callback", logincontroller.GoogleCallback)
 
 	r := gin.Default();
 	models.ConnectDataBase()
