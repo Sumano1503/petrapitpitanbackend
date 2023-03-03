@@ -8,8 +8,8 @@ import (
 
 func SetUpConfig() *oauth2.Config {
 	conf := &oauth2.Config{
-		ClientID: "490179235093-n8vurjhtci5qp13di65nd1g9qbqoevh7.apps.googleusercontent.com",
-		ClientSecret: "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",
+		ClientID: "707879399164-esp7a23mv1dnkl6d7asaj6jpdbhtjf37.apps.googleusercontent.com",
+		ClientSecret: "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",
 		RedirectURL: "http://localhost:8080/google/callback",
 		Scopes: []string{
 			"https://www.googleapis.com/auth/userinfo.email",
