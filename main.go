@@ -1,6 +1,9 @@
 package main
 
 import (
+	"net/http"
+	"time"
+
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpelanggarancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpeminjamancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailsepedahaltecontroller"
@@ -10,11 +13,54 @@ import (
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/usercontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/models"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt"
+	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/google"
 )
+
+func generateToken() (string, error) {
+    // Set claims
+    claims := jwt.MapClaims{}
+    claims["authorized"] = true
+    claims["user_id"] = "123"
+    claims["exp"] = time.Now().Add(time.Hour * 1).Unix() // Token expires after 1 hour
+
+    // Generate token
+    token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+    secretKey := []byte("your-secret-key")
+    tokenString, err := token.SignedString(secretKey)
+    if err != nil {
+        return "", err
+    }
+
+    return tokenString, nil
+}
+
+func googleLoginHandler(w http.ResponseWriter, r *http.Request) {
+    // Create OAuth2 configuration
+    oauthConfig := &oauth2.Config{
+        ClientID:     "your-client-id",
+        ClientSecret: "your-client-secret",
+        RedirectURL:  "your-redirect-url",
+        Scopes: []string{
+            "https://www.googleapis.com/auth/userinfo.email",
+            "https://www.googleapis.com/auth/userinfo.profile",
+        },
+        Endpoint: google.Endpoint,
+    }
+
+    // Get authorization URL
+    authURL := oauthConfig.AuthCodeURL("state", oauth2.AccessTypeOffline)
+
+    // Redirect user to authorization URL
+    http.Redirect(w, r, authURL, http.StatusSeeOther)
+}
 
 func main(){
 	r := gin.Default();
 	models.ConnectDataBase()
+
+	http.HandleFunc("/google/login", googleLoginHandler)
 
 	r.GET("/api/user", usercontroller.Index)
 	r.GET("/api/user/:id", usercontroller.Show)
@@ -59,4 +105,6 @@ func main(){
 	r.DELETE("/api/sepeda", sepedacontroller.Delete)
 
 	r.Run(":5001")
+
+	
 }
