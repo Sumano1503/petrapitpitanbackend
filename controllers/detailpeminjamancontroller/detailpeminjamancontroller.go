@@ -11,16 +11,13 @@ import (
 
 func Index(c *gin.Context) {
 	var detailPeminjaman []models.DetailPeminjaman
-
 	models.DB.Find(&detailPeminjaman)
 	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": detailPeminjaman})
 }
 
 func Show(c *gin.Context) {
 	var detailPeminjaman models.DetailPeminjaman
-
 	id := c.Param("id")
-
 	if err := models.DB.First(&detailPeminjaman, id).Error; err != nil {
 		switch err {
 		case gorm.ErrRecordNotFound:
@@ -30,38 +27,30 @@ func Show(c *gin.Context) {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		}
 	}
-
 	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": detailPeminjaman})
-	
 }
 
 func Create(c *gin.Context) {
 	var detailPeminjaman models.DetailPeminjaman
-
 	if err := c.ShouldBindJSON(&detailPeminjaman); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
 	}
-
 	models.DB.Create(&detailPeminjaman)
 	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": detailPeminjaman})
 }
 
 func Update(c *gin.Context) {
 	var detailPeminjaman models.DetailPeminjaman
-
 	id := c.Param("id")
-
 	if err := c.ShouldBindJSON(&detailPeminjaman); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
 	}
-
 	if models.DB.Model(&detailPeminjaman).Where("id = ?", id).Updates(&detailPeminjaman).RowsAffected == 0 {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "TIDAK DAPAT MENGUPDATE"})
 		return 
 	}
-
 	c.JSON(http.StatusOK, gin.H{"pesan": "berhasil di perbahaarui"})
 }
 
