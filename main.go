@@ -64,7 +64,7 @@ func main(){
 	r.PUT("/api/sepeda/:id", sepedacontroller.Update)
 	r.DELETE("/api/sepeda", sepedacontroller.Delete)
 
-	r.Run(":5001")
+	r.Run()
 
 	
 }
