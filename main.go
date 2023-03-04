@@ -1,75 +1,34 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpelanggarancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpeminjamancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailsepedahaltecontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/haltecontroller"
-	"github.com/Sumano1503/petrapitpitanbackend/controllers/logincontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/pelanggarancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/sepedacontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/usercontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/models"
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt"
 )
 
-type Token struct {
-	IDToken string `json:"id_token"`
-}
+func handler(w http.ResponseWriter, r *http.Request) {
+	bearerToken := r.Header.Get("Authorization")
+	token := strings.Split(bearerToken, " ")[1] // mengambil token setelah "Bearer "
+	// gunakan token untuk verifikasi pengguna
 
-func ValidateGoogleIDToken(res http.ResponseWriter, req *http.Request) {
-	if req.Method != "POST" {
-		res.WriteHeader(http.StatusMethodNotAllowed)
-		return
-	}
-
-	var token Token
-	err := json.NewDecoder(req.Body).Decode(&token)
-	if err != nil {
-		res.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	// Verify Google ID Token
-	jwtToken, err := jwt.ParseWithClaims(token.IDToken, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
-		// Replace with your Google OAuth 2.0 client ID
-		// https://developers.google.com/identity/protocols/oauth2/web-server#creatingcred
-		return []byte("707879399164-esp7a23mv1dnkl6d7asaj6jpdbhtjf37.apps.googleusercontent.com"), nil
-	})
-
-	if err != nil {
-		res.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	if !jwtToken.Valid {
-		res.WriteHeader(http.StatusUnauthorized)
-		return
-	}
-
-	claims := jwtToken.Claims.(*jwt.StandardClaims)
-
-	// Verify that the token is for your app
-	if claims.Issuer != "https://accounts.google.com" || claims.Audience != "707879399164-esp7a23mv1dnkl6d7asaj6jpdbhtjf37.apps.googleusercontent.com" {
-		res.WriteHeader(http.StatusUnauthorized)
-		return
-	}
-
-	// Token is valid, proceed with your business logic here
-	fmt.Fprintf(res, "Token is valid")
-}
+	fmt.Println(token)
+  }
 
 func main(){
-	http.HandleFunc("/google/login", logincontroller.GoogleLogin)
-	http.HandleFunc("/google/callback", logincontroller.GoogleCallback)
-	http.HandleFunc("/google/validate", ValidateGoogleIDToken)
 	r := gin.Default();
 	models.ConnectDataBase()
+
+	http.HandleFunc("/api/TokenAuth", handler)
 
 	r.GET("/api/user", usercontroller.Index)
 	r.GET("/api/user/:id", usercontroller.Show)
