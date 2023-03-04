@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpelanggarancontroller"
@@ -13,12 +15,59 @@ import (
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/usercontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/models"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt"
 )
+
+type Token struct {
+	IDToken string `json:"id_token"`
+}
+
+func ValidateGoogleIDToken(res http.ResponseWriter, req *http.Request) {
+	if req.Method != "POST" {
+		res.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
+
+	var token Token
+	err := json.NewDecoder(req.Body).Decode(&token)
+	if err != nil {
+		res.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	// Verify Google ID Token
+	jwtToken, err := jwt.ParseWithClaims(token.IDToken, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+		// Replace with your Google OAuth 2.0 client ID
+		// https://developers.google.com/identity/protocols/oauth2/web-server#creatingcred
+		return []byte("YOUR_GOOGLE_OAUTH2_CLIENT_ID"), nil
+	})
+
+	if err != nil {
+		res.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	if !jwtToken.Valid {
+		res.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	claims := jwtToken.Claims.(*jwt.StandardClaims)
+
+	// Verify that the token is for your app
+	if claims.Issuer != "https://accounts.google.com" || claims.Audience != "YOUR_GOOGLE_OAUTH2_CLIENT_ID" {
+		res.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	// Token is valid, proceed with your business logic here
+	fmt.Fprintf(res, "Token is valid")
+}
 
 func main(){
 	http.HandleFunc("/google/login", logincontroller.GoogleLogin)
 	http.HandleFunc("/google/callback", logincontroller.GoogleCallback)
-
+	http.HandleFunc("/google/validate", ValidateGoogleIDToken)
 	r := gin.Default();
 	models.ConnectDataBase()
 
