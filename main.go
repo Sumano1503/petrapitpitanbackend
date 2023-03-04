@@ -39,7 +39,7 @@ func ValidateGoogleIDToken(res http.ResponseWriter, req *http.Request) {
 	jwtToken, err := jwt.ParseWithClaims(token.IDToken, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
 		// Replace with your Google OAuth 2.0 client ID
 		// https://developers.google.com/identity/protocols/oauth2/web-server#creatingcred
-		return []byte("YOUR_GOOGLE_OAUTH2_CLIENT_ID"), nil
+		return []byte("707879399164-esp7a23mv1dnkl6d7asaj6jpdbhtjf37.apps.googleusercontent.com"), nil
 	})
 
 	if err != nil {
@@ -55,7 +55,7 @@ func ValidateGoogleIDToken(res http.ResponseWriter, req *http.Request) {
 	claims := jwtToken.Claims.(*jwt.StandardClaims)
 
 	// Verify that the token is for your app
-	if claims.Issuer != "https://accounts.google.com" || claims.Audience != "YOUR_GOOGLE_OAUTH2_CLIENT_ID" {
+	if claims.Issuer != "https://accounts.google.com" || claims.Audience != "707879399164-esp7a23mv1dnkl6d7asaj6jpdbhtjf37.apps.googleusercontent.com" {
 		res.WriteHeader(http.StatusUnauthorized)
 		return
 	}
