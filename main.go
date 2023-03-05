@@ -20,7 +20,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	// token := strings.Split(bearerToken, " ")[1] // mengambil token setelah "Bearer "
 	// gunakan token untuk verifikasi pengguna
 
-	fmt.Println("aaa")
+	fmt.Fprintf(w, "aaa")
   }
 
 func main(){
@@ -70,7 +70,7 @@ func main(){
 	r.POST("/api/sepeda", sepedacontroller.Create)
 	r.PUT("/api/sepeda/:id", sepedacontroller.Update)
 	r.DELETE("/api/sepeda", sepedacontroller.Delete)
-
+	http.ListenAndServe(":8081",nil)
 	r.Run(":8081")
 
 	
