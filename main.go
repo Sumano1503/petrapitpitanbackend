@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpelanggarancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpeminjamancontroller"
@@ -16,11 +17,11 @@ import (
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	// bearerToken := r.Header.Get("Authorization")
-	// token := strings.Split(bearerToken, " ")[1] // mengambil token setelah "Bearer "
+	bearerToken := r.Header.Get("Authorization")
+	token := strings.Split(bearerToken, " ")[1] // mengambil token setelah "Bearer "
 	// gunakan token untuk verifikasi pengguna
 
-	fmt.Fprintf(w, "aaa")
+	fmt.Println(w, token)
   }
 
 func main(){
