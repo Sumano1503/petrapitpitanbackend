@@ -71,7 +71,7 @@ func main(){
 	r.POST("/api/sepeda", sepedacontroller.Create)
 	r.PUT("/api/sepeda/:id", sepedacontroller.Update)
 	r.DELETE("/api/sepeda", sepedacontroller.Delete)
-	http.ListenAndServe(":8081",nil)
+	http.ListenAndServe(":8082",nil)
 	r.Run(":8081")
 
 	
