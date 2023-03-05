@@ -21,7 +21,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	token := strings.Split(bearerToken, " ")[1] // mengambil token setelah "Bearer "
 	// gunakan token untuk verifikasi pengguna
 
-	fmt.Println(w, token)
+	fmt.Println(token)
   }
 
 func main(){
