@@ -65,7 +65,7 @@ func main(){
 	auth.PUT("/pelanggaran/:id", pelanggarancontroller.Update)
 	auth.DELETE("/pelanggaran", pelanggarancontroller.Delete)
 
-	r.GET("/api/halte", haltecontroller.Index)
+	auth.GET("/api/halte", haltecontroller.Index)
 	r.GET("/api/halte/:id", haltecontroller.Show)
 	r.POST("/api/halte", haltecontroller.Create)
 	r.PUT("/api/halte/:id", haltecontroller.Update)
