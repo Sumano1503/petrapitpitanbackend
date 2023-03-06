@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/base64"
+	"encoding/json"
 	"net/http"
 	"strings"
 
@@ -28,9 +29,29 @@ import (
 		claims := jwt.MapClaims{}
 
 		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
-		tkn , err:= base64.StdEncoding.DecodeString(tokenString)
-		c.JSON(http.StatusUnauthorized, gin.H{"token" : tkn})
-		token, err := jwt.ParseWithClaims(string(tkn), claims, func(token *jwt.Token) (interface{}, error) {
+		tkn := strings.Split(tokenString, ".")
+		headerBytes, err := base64.RawURLEncoding.DecodeString(tkn[0])
+		if err != nil {
+			return
+		}
+		err = json.Unmarshal(headerBytes, gin.H{"error" : err})
+		if err != nil {
+			return
+		}
+		// Decode payload
+		payloadBytes, err := base64.RawURLEncoding.DecodeString(tkn[1])
+		if err != nil {
+			return
+		}
+		err = json.Unmarshal(payloadBytes, gin.H{"error" : err})
+		if err != nil {
+			return
+		}
+		signatureBytes, err:= base64.RawURLEncoding.DecodeString(tkn[2])
+		err = json.Unmarshal(signatureBytes, gin.H{"error" : err})
+		decodedToken := string(headerBytes) + "." + string(payloadBytes) + "." + string(signatureBytes) 
+		c.JSON(http.StatusUnauthorized, gin.H{"token": decodedToken})
+		token, err := jwt.ParseWithClaims(decodedToken, claims, func(token *jwt.Token) (interface{}, error) {
 			// Replace this with your own key lookup logic
 			return []byte("w41VrgDgWfr2DxfF6UxYIu7oLoU8rV9YhFzXCdpklE7SmEnN9gWYcdRAduqiMFN"), nil
 		})
