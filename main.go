@@ -54,7 +54,7 @@ import (
 		c.Abort()
 		token, err := jwt.ParseWithClaims(decodedToken, claims, func(token *jwt.Token) (interface{}, error) {
 			// Replace this with your own key lookup logic
-			return []byte("w41VrgDgWfr2DxfF6UxYIu7oLoU8rV9YhFzXCdpklE7SmEnN9gWYcdRAduqiMFN"), nil
+			return []byte(""), nil
 		})
 		if err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
@@ -92,35 +92,35 @@ func main(){
 	auth.DELETE("/pelanggaran", pelanggarancontroller.Delete)
 
 	auth.GET("/api/halte", haltecontroller.Index)
-	r.GET("/api/halte/:id", haltecontroller.Show)
-	r.POST("/api/halte", haltecontroller.Create)
-	r.PUT("/api/halte/:id", haltecontroller.Update)
-	r.DELETE("/api/halte", haltecontroller.Delete)
+	auth.GET("/api/halte/:id", haltecontroller.Show)
+	auth.POST("/api/halte", haltecontroller.Create)
+	auth.PUT("/api/halte/:id", haltecontroller.Update)
+	auth.DELETE("/api/halte", haltecontroller.Delete)
 
-	r.GET("/api/detailsepedahalte", detailsepedahaltecontroller.Index)
-	r.GET("/api/detailsepedahalte/:id", detailsepedahaltecontroller.Show)
-	r.POST("/api/detailsepedahalte", detailsepedahaltecontroller.Create)
-	r.PUT("/api/detailsepedahalte/:id", detailsepedahaltecontroller.Update)
-	r.DELETE("/api/detailsepedahalte", detailsepedahaltecontroller.Delete)
+	auth.GET("/api/detailsepedahalte", detailsepedahaltecontroller.Index)
+	auth.GET("/api/detailsepedahalte/:id", detailsepedahaltecontroller.Show)
+	auth.POST("/api/detailsepedahalte", detailsepedahaltecontroller.Create)
+	auth.PUT("/api/detailsepedahalte/:id", detailsepedahaltecontroller.Update)
+	auth.DELETE("/api/detailsepedahalte", detailsepedahaltecontroller.Delete)
 
-	r.GET("/api/detailpeminjaman", detailpeminjamancontroller.Index)
-	r.GET("/api/detailpeminjaman/:id", detailpeminjamancontroller.Show)
-	r.POST("/api/detailpeminjaman", detailpeminjamancontroller.Create)
-	r.PUT("/api/detailpeminjaman/:id", detailpeminjamancontroller.Update)
-	r.DELETE("/api/detailpeminjaman", detailpeminjamancontroller.Delete)
+	auth.GET("/api/detailpeminjaman", detailpeminjamancontroller.Index)
+	auth.GET("/api/detailpeminjaman/:id", detailpeminjamancontroller.Show)
+	auth.POST("/api/detailpeminjaman", detailpeminjamancontroller.Create)
+	auth.PUT("/api/detailpeminjaman/:id", detailpeminjamancontroller.Update)
+	auth.DELETE("/api/detailpeminjaman", detailpeminjamancontroller.Delete)
 
-	r.GET("/api/detailpelanggaran", detailpelanggarancontroller.Index)
-	r.GET("/api/detailpelanggaran/:id", detailpelanggarancontroller.Show)
-	r.POST("/api/detailpelanggaran", detailpelanggarancontroller.Create)
-	r.PUT("/api/detailpelanggaran/:id", detailpelanggarancontroller.Update)
-	r.DELETE("/api/detailpelanggaran", detailpelanggarancontroller.Delete)
+	auth.GET("/api/detailpelanggaran", detailpelanggarancontroller.Index)
+	auth.GET("/api/detailpelanggaran/:id", detailpelanggarancontroller.Show)
+	auth.POST("/api/detailpelanggaran", detailpelanggarancontroller.Create)
+	auth.PUT("/api/detailpelanggaran/:id", detailpelanggarancontroller.Update)
+	auth.DELETE("/api/detailpelanggaran", detailpelanggarancontroller.Delete)
 
 	auth.GET("/sepeda", sepedacontroller.Index)
-	r.GET("/api/sepeda/:id", sepedacontroller.Show)
-	r.POST("/api/sepeda", sepedacontroller.Create)
-	r.PUT("/api/sepeda/:id", sepedacontroller.Update)
-	r.DELETE("/api/sepeda", sepedacontroller.Delete)
-	// http.ListenAndServe(":8082",nil)
+	auth.GET("/api/sepeda/:id", sepedacontroller.Show)
+	auth.POST("/api/sepeda", sepedacontroller.Create)
+	auth.PUT("/api/sepeda/:id", sepedacontroller.Update)
+	auth.DELETE("/api/sepeda", sepedacontroller.Delete)
+	
 	r.Run(":8081")
 
 	
