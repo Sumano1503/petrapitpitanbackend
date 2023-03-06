@@ -26,7 +26,7 @@ import (
 		}
 
 		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
-		
+		c.JSON(http.StatusUnauthorized, gin.H{"token" : tokenString})
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 			// Replace this with your own key lookup logic
 			return []byte("w41VrgDgWfr2DxfF6UxYIu7oLoU8rV9YhFzXCdpklE7SmEnN9gWYcdRAduqiMFN"), nil
