@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -50,7 +51,7 @@ import (
 		signatureBytes, err:= base64.RawURLEncoding.DecodeString(tkn[2])
 		err = json.Unmarshal(signatureBytes, gin.H{"error" : err})
 		decodedToken := string(headerBytes) + "." + string(payloadBytes) + "." + string(signatureBytes) 
-		c.JSON(http.StatusUnauthorized, gin.H{"token": decodedToken})
+		fmt.Println(decodedToken)
 		token, err := jwt.ParseWithClaims(decodedToken, claims, func(token *jwt.Token) (interface{}, error) {
 			// Replace this with your own key lookup logic
 			return []byte("w41VrgDgWfr2DxfF6UxYIu7oLoU8rV9YhFzXCdpklE7SmEnN9gWYcdRAduqiMFN"), nil
