@@ -16,19 +16,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	bearerToken := r.Header.Get("Authorization")
+func handler(c *gin.Context) {
+	bearerToken := c.Request.Header.Get("Authorization")
 	token := strings.Split(bearerToken, " ")[1] // mengambil token setelah "Bearer "
 	// gunakan token untuk verifikasi pengguna
 
 	fmt.Println(token)
+
+	c.String(http.StatusOK, "Token Anda: %s", token)
   }
 
 func main(){
 	r := gin.Default();
 	models.ConnectDataBase()
 
-	http.HandleFunc("/api/TokenAuth", handler)
+	r.GET("/api/TokenAuth", handler)
 
 	r.GET("/api/user", usercontroller.Index)
 	r.GET("/api/user/:id", usercontroller.Show)
@@ -71,7 +73,7 @@ func main(){
 	r.POST("/api/sepeda", sepedacontroller.Create)
 	r.PUT("/api/sepeda/:id", sepedacontroller.Update)
 	r.DELETE("/api/sepeda", sepedacontroller.Delete)
-	http.ListenAndServe(":8082",nil)
+	
 	r.Run(":8081")
 
 	
