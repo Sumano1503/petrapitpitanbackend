@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -14,29 +13,51 @@ import (
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/usercontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/models"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt"
 )
 
-func handler(c *gin.Context) {
-	bearerToken := c.Request.Header.Get("Authorization")
-	token := strings.Split(bearerToken, " ")[1] // mengambil token setelah "Bearer "
-	// gunakan token untuk verifikasi pengguna
+  func AuthMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		authHeader := c.Request.Header.Get("Authorization")
+		if authHeader == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization header required"})
+			c.Abort()
+			return
+		}
 
-	fmt.Println(token)
+		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
+		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+			// Replace this with your own key lookup logic
+			return []byte("mysecretkey"), nil
+		})
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+			c.Abort()
+			return
+		}
 
-	c.String(http.StatusOK, "Token Anda: %s", token)
-  }
+		if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+			c.Set("user_id", claims["user_id"])
+			c.Next()
+		} else {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
+			c.Abort()
+			return
+		}
+	}
+}
+
 
 func main(){
 	r := gin.Default();
 	models.ConnectDataBase()
 
-	r.GET("/api/TokenAuth", handler)
-
-	r.GET("/api/user", usercontroller.Index)
-	r.GET("/api/user/:id", usercontroller.Show)
-	r.POST("/api/user", usercontroller.Create)
-	r.PUT("/api/user/:id", usercontroller.Update)
-	r.DELETE("/api/user", usercontroller.Delete)
+	auth := r.Group("/api",AuthMiddleware())
+	auth.GET("/api/user", usercontroller.Index)
+	auth.GET("/api/user/:id", usercontroller.Show)
+	auth.POST("/api/user", usercontroller.Create)
+	auth.PUT("/api/user/:id", usercontroller.Update)
+	auth.DELETE("/api/user", usercontroller.Delete)
 
 	r.GET("/api/pelanggaran", pelanggarancontroller.Index)
 	r.GET("/api/pelanggaran/:id", pelanggarancontroller.Show)
