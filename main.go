@@ -54,7 +54,7 @@ import (
 		c.Abort()
 		token, err := jwt.ParseWithClaims(decodedToken, claims, func(token *jwt.Token) (interface{}, error) {
 			// Replace this with your own key lookup logic
-			return []byte(""), nil
+			return []byte("w41VrgDgWfr2DxfF6UxYIu7oLoU8rV9YhFzXCdpklE7SmEnN9gWYcdRAduqiMFN"), nil
 		})
 		if err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
@@ -121,7 +121,7 @@ func main(){
 	auth.PUT("/api/sepeda/:id", sepedacontroller.Update)
 	auth.DELETE("/api/sepeda", sepedacontroller.Delete)
 	
-	r.Run(":8081")
+	r.Run(":5554")
 
 	
 }
