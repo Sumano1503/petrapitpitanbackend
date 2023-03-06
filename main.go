@@ -1,9 +1,13 @@
 package main
 
 import (
+	"context"
+	"encoding/base64"
+	"fmt"
 	"net/http"
 	"strings"
 
+	"firebase.google.com/go/auth"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpelanggarancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpeminjamancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailsepedahaltecontroller"
@@ -27,8 +31,9 @@ import (
 		claims := jwt.MapClaims{}
 
 		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
-		c.JSON(http.StatusUnauthorized, gin.H{"token" : tokenString})
-		token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
+		tkn , err:= base64.StdEncoding.DecodeString(tokenString)
+		c.JSON(http.StatusUnauthorized, gin.H{"token" : tkn})
+		token, err := jwt.ParseWithClaims(string(tkn), claims, func(token *jwt.Token) (interface{}, error) {
 			// Replace this with your own key lookup logic
 			return []byte("w41VrgDgWfr2DxfF6UxYIu7oLoU8rV9YhFzXCdpklE7SmEnN9gWYcdRAduqiMFN"), nil
 		})
@@ -47,6 +52,22 @@ import (
 			return
 		}
 	}
+}
+
+
+func validateIDToken(ctx context.Context, token string) (*auth.Token, error) {
+    client, err := auth.NewClient(ctx)
+    if err != nil {
+        return nil, fmt.Errorf("error creating firebase auth client: %v", err)
+    }
+
+    // Verify the ID token.
+    token, err := client.VerifyIDToken(ctx, token)
+    if err != nil {
+        return nil, fmt.Errorf("error verifying ID token: %v", err)
+    }
+
+    return token, nil
 }
 
 
