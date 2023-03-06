@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/base64"
 	"net/http"
 	"strings"
 
@@ -27,8 +26,8 @@ import (
 		}
 
 		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
-		out, err := base64.StdEncoding.WithPadding(base64.NoPadding).DecodeString(tokenString)
-		token, err := jwt.Parse(string(out), func(token *jwt.Token) (interface{}, error) {
+		
+		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 			// Replace this with your own key lookup logic
 			return []byte("w41VrgDgWfr2DxfF6UxYIu7oLoU8rV9YhFzXCdpklE7SmEnN9gWYcdRAduqiMFN"), nil
 		})
