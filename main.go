@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"strings"
 
@@ -21,8 +22,31 @@ func handler(c *gin.Context) {
 	token := strings.Split(bearerToken, " ")[1] // mengambil token setelah "Bearer "
 	// gunakan token untuk verifikasi pengguna
 
+	req, err := http.NewRequest("GET", "https://localhost/8081/api/sepeda", nil)
+    if err != nil {
+        c.String(http.StatusInternalServerError, "Terjadi kesalahan pada server")
+        return
+    }
+    req.Header.Set("Authorization", "Bearer "+token)
+    
+    // mengirimkan request ke API
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    if err != nil {
+        c.String(http.StatusInternalServerError, "Terjadi kesalahan pada server")
+        return
+    }
+    defer resp.Body.Close()
+    
+    // membaca data dari response
+    body, err := ioutil.ReadAll(resp.Body)
+    if err != nil {
+        c.String(http.StatusInternalServerError, "Terjadi kesalahan pada server")
+        return
+    }
+    
+    c.String(http.StatusOK, string(body))
 	fmt.Println(token)
-
 	c.String(http.StatusOK, "Token Anda: %s", token)
   }
 
