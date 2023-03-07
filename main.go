@@ -73,12 +73,21 @@ import (
 	}
 }
 
+func Login() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"message": "berhasil Login"})
+	}
+}
+
 
 func main(){
 	r := gin.Default();
 	models.ConnectDataBase()
 
 	auth := r.Group("/api",AuthMiddleware())
+
+	auth.GET("/login", Login())
+
 	auth.GET("/user", usercontroller.Index)
 	auth.GET("/user/:id", usercontroller.Show)
 	auth.POST("/user", usercontroller.Create)
