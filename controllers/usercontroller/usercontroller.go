@@ -30,6 +30,8 @@ func CekAdmin(c *gin.Context) {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		}
 	}
+
+	c.JSON(http.StatusOK, gin.H{"user": users})
 }
 
 func Show(c *gin.Context) {
