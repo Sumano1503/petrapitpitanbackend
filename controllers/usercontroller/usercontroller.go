@@ -37,7 +37,7 @@ func CekAdmin(c *gin.Context) {
 	// 	}
 	// }
 
-	c.JSON(http.StatusOK, gin.H{"user": users})
+	c.JSON(http.StatusOK, gin.H{"user": "User Found"})
 }
 
 func Show(c *gin.Context) {
