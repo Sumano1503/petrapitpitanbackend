@@ -16,6 +16,22 @@ func Index(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"user": users})
 }
 
+func CekAdmin(c *gin.Context) {
+	var users models.User
+
+	input := c.Param("email")
+
+	if err := models.DB.Where("email = ?", input).First(&users).Error; err != nil {
+		switch err {
+		case gorm.ErrRecordNotFound:
+			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
+			return 
+		default:
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		}
+	}
+}
+
 func Show(c *gin.Context) {
 	var users models.User
 
