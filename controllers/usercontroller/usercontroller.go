@@ -27,16 +27,6 @@ func CekAdmin(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
 		return
 	}
-	// err != nil {
-	// 	switch err {
-	// 	case gorm.ErrRecordNotFound:
-	// 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
-	// 		return 
-	// 	default:
-	// 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-	// 	}
-	// }
-
 	c.JSON(http.StatusOK, gin.H{"user": "User Found"})
 }
 
