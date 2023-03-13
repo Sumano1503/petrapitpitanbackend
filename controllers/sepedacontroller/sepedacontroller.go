@@ -70,7 +70,12 @@ func Delete(c *gin.Context) {
 	id := c.Param("id")
 
 
-	if models.DB.Delete(&sepeda).Where("id = ?", id).RowsAffected == 0 {
+	if err := models.DB.Where("id = ?", id ).First(&sepeda).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Sepeda tidak ditemukan"})
+        return
+	}
+
+	if err:= models.DB.Delete(&sepeda).Error; err!=nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "tidak dapat menghapus"})
 		return 
 	}
