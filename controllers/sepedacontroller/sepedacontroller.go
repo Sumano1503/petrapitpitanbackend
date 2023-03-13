@@ -14,7 +14,7 @@ func Index(c *gin.Context) {
 	var sepeda []models.Sepeda
 
 	models.DB.Find(&sepeda)
-	c.JSON(http.StatusOK, gin.H{"Sepeda": sepeda})
+	c.JSON(http.StatusOK, gin.H{"data": sepeda})
 }
 
 func Show(c *gin.Context) {
@@ -32,7 +32,7 @@ func Show(c *gin.Context) {
 		}
 	}
 
-	c.JSON(http.StatusOK, gin.H{"sepeda": sepeda})
+	c.JSON(http.StatusOK, gin.H{"data": sepeda})
 	
 }
 
@@ -45,7 +45,7 @@ func Create(c *gin.Context) {
 	}
 
 	models.DB.Create(&sepeda)
-	c.JSON(http.StatusOK, gin.H{"sepeda": sepeda})
+	c.JSON(http.StatusOK, gin.H{"data": sepeda})
 }
 
 func Update(c *gin.Context) {
