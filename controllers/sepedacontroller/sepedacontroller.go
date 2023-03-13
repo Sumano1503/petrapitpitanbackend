@@ -70,11 +70,6 @@ func Delete(c *gin.Context) {
 
 	id := c.Param("id")
 
-	if err := c.ShouldBindJSON(&sepeda); err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return 
-	}
-
 	if models.DB.Delete(&sepeda).Where("id = ?", id).RowsAffected == 0 {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "tidak dapat menghapus"})
 		return 
