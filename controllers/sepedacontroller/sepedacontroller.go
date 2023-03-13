@@ -1,7 +1,6 @@
 package sepedacontroller
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/Sumano1503/petrapitpitanbackend/models"
@@ -69,17 +68,14 @@ func Update(c *gin.Context) {
 func Delete(c *gin.Context) {
 	var sepeda models.Sepeda
 
-	var input struct {
-		Id json.Number
-	}
+	id := c.Param("id")
 
-	if err := c.ShouldBindJSON(&input); err != nil {
+	if err := c.ShouldBindJSON(&sepeda); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
 	}
 
-	id, _ := input.Id.Int64()
-	if models.DB.Delete(&sepeda, id).RowsAffected == 0 {
+	if models.DB.Delete(&sepeda).Where("id = ?", id).RowsAffected == 0 {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "tidak dapat menghapus"})
 		return 
 	}
