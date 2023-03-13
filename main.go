@@ -129,7 +129,7 @@ func main(){
 	auth.GET("/sepeda/:id", sepedacontroller.Show)
 	auth.POST("/sepeda", sepedacontroller.Create)
 	auth.PUT("/sepeda/:id", sepedacontroller.Update)
-	auth.DELETE("/sepeda", sepedacontroller.Delete)
+	auth.DELETE("/sepeda/:id", sepedacontroller.Delete)
 	
 	r.Run(":8081")
 

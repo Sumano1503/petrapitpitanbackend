@@ -27,6 +27,7 @@ func CekAdmin(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{"user": "User Found"})
 }
 
