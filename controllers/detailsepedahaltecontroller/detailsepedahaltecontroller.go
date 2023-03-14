@@ -85,3 +85,21 @@ func Delete(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"pesan": "berhasil di hapus"})
 }
+
+func DeleteByIdSepeda(c *gin.Context) {	
+	var detailSepedaHalte models.DetailSepedaHalte
+	id := c.Param("id")
+
+
+	if err := models.DB.Where("id_sepeda = ?", id ).First(&detailSepedaHalte).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Sepeda tidak ditemukan"})
+        return
+	}
+
+	if err:= models.DB.Delete(&detailSepedaHalte).Error; err!=nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "tidak dapat menghapus"})
+		return 
+	}
+
+	c.JSON(http.StatusOK, gin.H{"pesan": "berhasil di hapus"})
+}
