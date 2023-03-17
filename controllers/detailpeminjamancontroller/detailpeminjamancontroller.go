@@ -33,7 +33,7 @@ func Show(c *gin.Context) {
 func ShowIdSep(c *gin.Context) {
 	var detailPeminjaman models.DetailPeminjaman
 	id := c.Param("id")
-	if err := models.DB.Where("id_sepeda = ?", id).Error; err != nil {
+	if err := models.DB.First("id_sepeda = ?", id).Error; err != nil {
 		switch err {
 		case gorm.ErrRecordNotFound:
 			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
