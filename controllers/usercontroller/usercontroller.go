@@ -21,7 +21,7 @@ func CekAdmin(c *gin.Context) {
 
 	input := c.Param("email")
 
-	err := models.DB.Where("email = ?  AND role = 'Admin'", input).Find(&users).Error;
+	err := models.DB.Where("email = ?  AND role =  ?", input, "Admin").Find(&users).Error;
 
 	if err != nil{
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
