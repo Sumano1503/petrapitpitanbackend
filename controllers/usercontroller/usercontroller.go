@@ -34,7 +34,7 @@ func CekAdmin(c *gin.Context) {
 func UserNonAktif(c *gin.Context) {
 	var users []models.User
 		
-	if err := models.DB.Where("status = ?", "nonaktif").First(&users).Error; err != nil {
+	if err := models.DB.Where("status = ?", "nonaktif").Find(&users).Error; err != nil {
 		switch err {
 		case gorm.ErrRecordNotFound:
 			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
