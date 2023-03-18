@@ -32,7 +32,7 @@ func CekAdmin(c *gin.Context) {
 }
 
 func UserNonAktif(c *gin.Context) {
-	var users models.User
+	var users []models.User
 		
 	if err := models.DB.Where("status = ?", "nonaktif").First(&users).Error; err != nil {
 		switch err {
