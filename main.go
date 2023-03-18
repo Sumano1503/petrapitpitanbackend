@@ -93,7 +93,7 @@ func main(){
 	auth.GET("/cekuser/:email", usercontroller.CekAdmin)
 	auth.POST("/user", usercontroller.Create)
 	auth.PUT("/user/:id", usercontroller.Update)
-	auth.DELETE("/user", usercontroller.Delete)
+	auth.DELETE("/user/:id", usercontroller.Delete)
 	auth.GET("/userNonAktif", usercontroller.UserNonAktif)
 
 	auth.GET("/pelanggaran", pelanggarancontroller.Index)
