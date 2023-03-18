@@ -21,14 +21,18 @@ func CekAdmin(c *gin.Context) {
 
 	input := c.Param("email")
 
-	err := models.DB.Where("email = ?  AND role =  ?", input, "Admin").Find(&users).Error;
+	err := models.DB.Where("email = ?", input).Find(&users).Error;
 
 	if err != nil{
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
 		return
 	}
-
-	c.JSON(http.StatusOK, gin.H{"user": "User Found"})
+	if(users.Role=="Admin"){
+		c.JSON(http.StatusOK, gin.H{"user": "User Found"})
+	}else{
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
+	}
+	
 }
 
 func UserNonAktif(c *gin.Context) {
