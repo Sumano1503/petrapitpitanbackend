@@ -36,7 +36,7 @@ func UserNonAktif(c *gin.Context) {
 
 	// input := c.Param("email")
 
-	err := models.DB.Where("status = ?", "nonaktif").First(&users).Error;
+	err := models.DB.Where("status = nonaktif").First(&users).Error;
 
 	if err != nil{
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
