@@ -1,7 +1,6 @@
 package usercontroller
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/Sumano1503/petrapitpitanbackend/models"
@@ -100,19 +99,16 @@ func Update(c *gin.Context) {
 }
 
 func Delete(c *gin.Context) {
-	var users models.User
+	var user models.User
+	id := c.Param("id")
 
-	var input struct {
-		Id json.Number
+
+	if err := models.DB.Where("id = ?", id ).First(&user).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "user tidak ditemukan"})
+        return
 	}
 
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return 
-	}
-
-	id, _ := input.Id.Int64()
-	if models.DB.Delete(&users, id).RowsAffected == 0 {
+	if err:= models.DB.Delete(&user).Error; err!=nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "tidak dapat menghapus"})
 		return 
 	}
