@@ -31,6 +31,21 @@ func CekAdmin(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"user": "User Found"})
 }
 
+func UserNonAktif(c *gin.Context) {
+	var users models.User
+
+	// input := c.Param("email")
+
+	err := models.DB.Where("status = ?", "nonaktif").First(&users).Error;
+
+	if err != nil{
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"user": "User Found"})
+}
+
 func Show(c *gin.Context) {
 	var users models.User
 
