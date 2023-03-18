@@ -43,7 +43,7 @@ func UserNonAktif(c *gin.Context) {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		}
 	}
-	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": users})
+	c.JSON(http.StatusOK, gin.H{"data": users})
 }
 
 func Show(c *gin.Context) {
