@@ -29,6 +29,7 @@ func CheckUserSignIn(c *gin.Context){
 	result := models.DB.Where("email = ? ", users.Email).First(&users)
 	if result.Error != nil {
 		models.DB.Create(&users)
+		c.JSON(http.StatusOK, gin.H{"user": users})
 	}else{
 		c.JSON(http.StatusOK, gin.H{"user": users, "pesan": "user sudah ada"})
 	}
