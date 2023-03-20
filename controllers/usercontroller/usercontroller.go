@@ -7,6 +7,17 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
+func Create(c *gin.Context) {
+	var users models.User
+
+	if err := c.ShouldBindJSON(&users); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return 
+	}
+
+	models.DB.Create(&users)
+	c.JSON(http.StatusOK, gin.H{"user": users})
+}
 func CheckUserSignIn(c *gin.Context){
 	var users models.User
 
@@ -17,7 +28,7 @@ func CheckUserSignIn(c *gin.Context){
 
 	result := models.DB.Where("email = ? ", users.Email).First(&users)
 	if result.Error != nil {
-		Create(c)
+		models.DB.Create(&users)
 	}else{
 		c.JSON(http.StatusOK, gin.H{"user": users, "pesan": "user sudah ada"})
 	}
@@ -83,17 +94,7 @@ func Show(c *gin.Context) {
 	
 }
 
-func Create(c *gin.Context) {
-	var users models.User
 
-	if err := c.ShouldBindJSON(&users); err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return 
-	}
-
-	models.DB.Create(&users)
-	c.JSON(http.StatusOK, gin.H{"user": users})
-}
 
 func Update(c *gin.Context) {
 	var users models.User
