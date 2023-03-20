@@ -112,10 +112,8 @@ func GetSepedaHalte1(c *gin.Context) {
 		// c.JSON(http.StatusOK, gin.H{"detailSepedaHalte": detailSepedaHalte})
 	models.DB.Find(&sepeda)
 		// c.JSON(http.StatusOK, gin.H{"sepeda": sepeda})
-	if err := models.DB.Where("id_halte = ?", 1).Find(&detailSepedaHalte).Error; err != nil {
-		c.JSON(http.StatusOK, gin.H{"halte": detailSepedaHalte})
-		return 
-	}
+	models.DB.Where("id_halte = ?", 1).Find(&detailSepedaHalte)
+		c.JSON(http.StatusOK, gin.H{"detailSepedaHalte": detailSepedaHalte})
 	
 	
 	// c.JSON(http.StatusOK, gin.H{"sepedaHalte1": sepedaHalte1})
