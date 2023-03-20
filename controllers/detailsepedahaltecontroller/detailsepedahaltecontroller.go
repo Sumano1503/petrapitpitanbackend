@@ -107,16 +107,22 @@ func DeleteByIdSepeda(c *gin.Context) {
 func GetSepedaHalte1(c *gin.Context) {
 	var detailSepedaHalte []models.DetailSepedaHalte;
 	var sepeda []models.Sepeda;
-	// var sepedaHalte1 []models.Sepeda;
+	var sepedaHalte1 []models.Sepeda;
 	models.DB.Find(&detailSepedaHalte)
 		// c.JSON(http.StatusOK, gin.H{"detailSepedaHalte": detailSepedaHalte})
 	models.DB.Find(&sepeda)
 		// c.JSON(http.StatusOK, gin.H{"sepeda": sepeda})
-	models.DB.Where("id_halte = ?", 1).Find(&detailSepedaHalte)
-		c.JSON(http.StatusOK, gin.H{"detailSepedaHalte": detailSepedaHalte})
+	models.DB.Where("id_halte = ? AND status = ?", 1, "available").Find(&detailSepedaHalte)
+	for i:= 0; i < len(detailSepedaHalte); i++ {
+		for j:= 0; j < len(sepeda); j++ {
+			if detailSepedaHalte[i].Id_sepeda == sepeda[j].Id {
+				sepedaHalte1 = append(sepedaHalte1, sepeda[j])
+			}
+		}
+	}
 	
 	
-	// c.JSON(http.StatusOK, gin.H{"sepedaHalte1": sepedaHalte1})
+	c.JSON(http.StatusOK, gin.H{"sepedaHalte1": sepedaHalte1})
 }
 
 func GetSepedaHalte2(c *gin.Context) {
