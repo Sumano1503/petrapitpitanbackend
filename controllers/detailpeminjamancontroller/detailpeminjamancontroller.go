@@ -92,7 +92,7 @@ func Delete(c *gin.Context) {
 }
 
 func HistoryUser(c *gin.Context){
-	var detailPeminjaman models.DetailPeminjaman
+	var detailPeminjaman []models.DetailPeminjaman
 	var user models.User
 
 	email := c.Param("email")
