@@ -144,5 +144,4 @@ func GetSepedaHalte2(c *gin.Context) {
 	
 	
 	c.JSON(http.StatusOK, gin.H{"sepedaHalte2": sepedaHalte2})
-
 }

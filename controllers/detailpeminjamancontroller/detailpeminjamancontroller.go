@@ -90,3 +90,21 @@ func Delete(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"pesan": "berhasil di hapus"})
 }
+
+func HistoryUser(c *gin.Context){
+	var detailPeminjaman models.DetailPeminjaman
+	var user models.User
+
+	email := c.Param("email")
+	if err := models.DB.Where("email = ?", email).First(&user).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
+	}
+
+	id := user.Id
+
+	if err := models.DB.Where("id_user = ? AND status = ?", id, "done").First(&detailPeminjaman).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
+	}
+
+	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": detailPeminjaman})
+}
