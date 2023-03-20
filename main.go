@@ -95,6 +95,7 @@ func main(){
 	auth.PUT("/user/:id", usercontroller.Update)
 	auth.DELETE("/user/:id", usercontroller.Delete)
 	auth.GET("/userNonAktif", usercontroller.UserNonAktif)
+	auth.POST("/signInCheck", usercontroller.CheckUserSignIn)
 
 	auth.GET("/pelanggaran", pelanggarancontroller.Index)
 	auth.GET("/pelanggaran/:id", pelanggarancontroller.Show)

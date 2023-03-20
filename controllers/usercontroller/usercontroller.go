@@ -7,6 +7,21 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
+func CheckUserSignIn(c *gin.Context){
+	var users models.User
+
+	if err := c.ShouldBindJSON(&users); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return 
+	}
+
+	result := models.DB.Where("email = ? ", users.Email).First(&users)
+	if result.Error != nil {
+		Create(c)
+	}else{
+		c.JSON(http.StatusOK, gin.H{"user": users, "pesan": "user sudah ada"})
+	}
+}
 
 func Index(c *gin.Context) {
 	var users []models.User
@@ -115,4 +130,8 @@ func Delete(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"pesan": "berhasil di hapus"})
 }
+
+
+	
+
 
