@@ -116,7 +116,7 @@ func GetSepedaHalte1(c *gin.Context) {
 		for i := 0; i < len(detailSepedaHalte); i++ {
 			for j := 0; j < len(sepeda); j++ {
 				if detailSepedaHalte[i].Id_sepeda == sepeda[j].Id {
-					sepedaHalte1 = append(sepedaHalte1, sepedaHalte1[j])
+					sepedaHalte1 = append(sepeda, sepeda[j])
 				}
 			}
 		}
