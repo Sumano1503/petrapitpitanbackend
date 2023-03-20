@@ -115,6 +115,7 @@ func main(){
 	auth.PUT("/detailsepedahalte/:id", detailsepedahaltecontroller.Update)
 	auth.DELETE("/detailsepedahalte", detailsepedahaltecontroller.Delete)
 	auth.DELETE("/detailsepedahalteDelByIdSepeda/:id", detailsepedahaltecontroller.DeleteByIdSepeda)
+	auth.GET("/sepedaHalte1", detailsepedahaltecontroller.GetSepedaHalte1)
 
 	auth.GET("/detailpeminjaman", detailpeminjamancontroller.Index)
 	auth.GET("/detailpeminjaman/:id", detailpeminjamancontroller.Show)
