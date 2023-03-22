@@ -126,7 +126,7 @@ func main(){
 	auth.PUT("/detailpeminjaman/:id", detailpeminjamancontroller.Update)
 	auth.DELETE("/detailpeminjaman", detailpeminjamancontroller.Delete)
 	auth.GET("/historyUser/:email", detailpeminjamancontroller.HistoryUser)
-	auth.GET("/detailHistoryUser/:id", detailpeminjamancontroller.DetailHistoryUser)
+	auth.GET("/detailHistoryUser", detailpeminjamancontroller.DetailHistoryUser)
 
 	auth.GET("/detailpelanggaran", detailpelanggarancontroller.Index)
 	auth.GET("/detailpelanggaran/:id", detailpelanggarancontroller.Show)
