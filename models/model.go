@@ -20,6 +20,8 @@ type DetailPeminjaman struct{
 	Id_sepeda int64 `gorm:"size:100;not null;" json:"id_sepeda"`
 	Waktu_pengambilan string `gorm:"size:255;not null;" json:"waktu_pengambilan"`
 	Waktu_pengembalian string `gorm:"size:255; not null;" json:"waktu_pengembalian"`
+	Waktu_Peminjaman string `gorm:"size:255; not null;" json:"waktu_peminjaman"`
+	Batas_Waktu_Peminjaman string `gorm:"size:255; not null;" json:"batas_waktu_pengembalian"`
 }
 
 type DetailPelanggaran struct{
