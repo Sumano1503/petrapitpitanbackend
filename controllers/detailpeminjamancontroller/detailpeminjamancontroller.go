@@ -2,7 +2,6 @@ package detailpeminjamancontroller
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/Sumano1503/petrapitpitanbackend/models"
@@ -111,6 +110,10 @@ func HistoryUser(c *gin.Context){
 }
 
 func DetailHistoryUser(c *gin.Context){
+	var detailPeminjaman []models.DetailPeminjaman
+	models.DB.Find(&detailPeminjaman)
+	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": detailPeminjaman})
+}
 	// type DetailHistoryUser struct{
 	// 	Id_detail_peminjaman int64 
 	// 	Nama_Peminjam string 
@@ -127,20 +130,20 @@ func DetailHistoryUser(c *gin.Context){
 	// 	Batas_Waktu_Peminjaman string
 	// }
 	// var detailhistoryuser DetailHistoryUser
-	var detailPeminjaman models.DetailPeminjaman
+	// var detailPeminjaman models.DetailPeminjaman
 	// var user models.User
 	// var halteAsal models.Halte
 	// var halteTujuan models.Halte
 	// var sepeda models.Sepeda
 
-	id := c.Param("id")
+	// id := c.Param("id")
 
-	if err := models.DB.Where("id = ?", id).First(&detailPeminjaman).Error; err != nil {
-		panic("failed to fetch data from database")
-		// c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
-	}
+	// if err := models.DB.Where("id = ?", id).First(&detailPeminjaman).Error; err != nil {
+	// 	panic("failed to fetch data from database")
+	// 	// c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
+	// }
 
-	fmt.Println(detailPeminjaman)
+	// fmt.Println(detailPeminjaman)
 
 	// models.DB.Where("id = ?", detailPeminjaman.Id_user).Find(&user)
 	// models.DB.Where("id_halte = ?", detailPeminjaman.Id_halte_asal).Find(&halteAsal)
@@ -162,4 +165,4 @@ func DetailHistoryUser(c *gin.Context){
 	// detailhistoryuser.Batas_Waktu_Peminjaman = detailPeminjaman.Batas_Waktu_Peminjaman
 
 	// c.JSON(http.StatusOK, gin.H{"data": detailhistoryuser})
-}
+// }
