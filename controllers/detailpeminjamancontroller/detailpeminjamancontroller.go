@@ -110,59 +110,48 @@ func HistoryUser(c *gin.Context){
 }
 
 func DetailHistoryUser(c *gin.Context){
-// 	var detailPeminjaman []models.DetailPeminjaman
-// 	models.DB.Find(&detailPeminjaman)
-// 	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": detailPeminjaman})
-// }
-	// type DetailHistoryUser struct{
-	// 	Id_detail_peminjaman int64 
-	// 	Nama_Peminjam string 
-	// 	Nrp_Peminjam string 
-	// 	Tanggal string 
-	// 	Status string 
-	// 	Nama_halte_asal string
-	// 	Nama_halte_tujuan string 
-	// 	Nama_sepeda string 
-	// 	Id_sepeda int64 
-	// 	Waktu_pengambilan string 
-	// 	Waktu_pengembalian string 
-	// 	Waktu_Peminjaman string
-	// 	Batas_Waktu_Peminjaman string
-	// }
-	// var detailhistoryuser DetailHistoryUser
+	type DetailHistoryUser struct{
+		Id_detail_peminjaman int64 
+		Nama_Peminjam string 
+		Nrp_Peminjam string 
+		Tanggal string 
+		Status string 
+		Nama_halte_asal string
+		Nama_halte_tujuan string 
+		Nama_sepeda string 
+		Id_sepeda int64 
+		Waktu_pengambilan string 
+		Waktu_pengembalian string 
+		Waktu_Peminjaman string
+		Batas_Waktu_Peminjaman string
+	}
+	var detailhistoryuser DetailHistoryUser
 	var detailPeminjaman models.DetailPeminjaman
-	// var user models.User
-	// var halteAsal models.Halte
-	// var halteTujuan models.Halte
-	// var sepeda models.Sepeda
+	var user models.User
+	var halteAsal models.Halte
+	var halteTujuan models.Halte
+	var sepeda models.Sepeda
 
 	id := c.Param("id")
-
-	if err := models.DB.Where("id = ?", id).First(&detailPeminjaman).Error; err != nil {
-		panic("failed to fetch data from database")
-		// c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
-	}
-
-	c.JSON(http.StatusOK, gin.H{"data": detailPeminjaman})
-
-	// models.DB.Where("id = ?", detailPeminjaman.Id_user).Find(&user)
-	// models.DB.Where("id_halte = ?", detailPeminjaman.Id_halte_asal).Find(&halteAsal)
-	// models.DB.Where("id_halte = ?", detailPeminjaman.Id_halte_tujuan).Find(&halteTujuan)
-	// models.DB.Where("id_sepeda = ?", detailPeminjaman.Id_sepeda).Find(&sepeda)
+	models.DB.Where("id = ?", id).First(&detailPeminjaman)
+	models.DB.Where("id = ?", detailPeminjaman.Id_user).Find(&user)
+	models.DB.Where("id_halte = ?", detailPeminjaman.Id_halte_asal).Find(&halteAsal)
+	models.DB.Where("id_halte = ?", detailPeminjaman.Id_halte_tujuan).Find(&halteTujuan)
+	models.DB.Where("id_sepeda = ?", detailPeminjaman.Id_sepeda).Find(&sepeda)
 	
-	// detailhistoryuser.Id_detail_peminjaman = detailPeminjaman.Id
-	// detailhistoryuser.Nama_Peminjam = user.Nama
-	// detailhistoryuser.Nrp_Peminjam = detailPeminjaman.Nrp_Peminjam
-	// detailhistoryuser.Tanggal = detailPeminjaman.Tanggal
-	// detailhistoryuser.Status = detailPeminjaman.Status
-	// detailhistoryuser.Nama_halte_asal = halteAsal.Nama_halte
-	// detailhistoryuser.Nama_halte_tujuan = halteTujuan.Nama_halte
-	// detailhistoryuser.Nama_sepeda = sepeda.Nama
-	// detailhistoryuser.Id_sepeda = detailPeminjaman.Id_sepeda
-	// detailhistoryuser.Waktu_pengambilan = detailPeminjaman.Waktu_pengambilan
-	// detailhistoryuser.Waktu_pengembalian = detailPeminjaman.Waktu_pengembalian
-	// detailhistoryuser.Waktu_Peminjaman = detailPeminjaman.Waktu_Peminjaman
-	// detailhistoryuser.Batas_Waktu_Peminjaman = detailPeminjaman.Batas_Waktu_Peminjaman
+	detailhistoryuser.Id_detail_peminjaman = detailPeminjaman.Id
+	detailhistoryuser.Nama_Peminjam = user.Nama
+	detailhistoryuser.Nrp_Peminjam = detailPeminjaman.Nrp_Peminjam
+	detailhistoryuser.Tanggal = detailPeminjaman.Tanggal
+	detailhistoryuser.Status = detailPeminjaman.Status
+	detailhistoryuser.Nama_halte_asal = halteAsal.Nama_halte
+	detailhistoryuser.Nama_halte_tujuan = halteTujuan.Nama_halte
+	detailhistoryuser.Nama_sepeda = sepeda.Nama
+	detailhistoryuser.Id_sepeda = detailPeminjaman.Id_sepeda
+	detailhistoryuser.Waktu_pengambilan = detailPeminjaman.Waktu_pengambilan
+	detailhistoryuser.Waktu_pengembalian = detailPeminjaman.Waktu_pengembalian
+	detailhistoryuser.Waktu_Peminjaman = detailPeminjaman.Waktu_Peminjaman
+	detailhistoryuser.Batas_Waktu_Peminjaman = detailPeminjaman.Batas_Waktu_Peminjaman
 
-	// c.JSON(http.StatusOK, gin.H{"data": detailhistoryuser})
+	c.JSON(http.StatusOK, gin.H{"data": detailhistoryuser})
 }
