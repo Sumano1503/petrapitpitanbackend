@@ -137,7 +137,7 @@ func DetailHistoryUser(c *gin.Context){
 	models.DB.Where("id = ?", detailPeminjaman.Id_user).Find(&user)
 	models.DB.Where("id_halte = ?", detailPeminjaman.Id_halte_asal).Find(&halteAsal)
 	models.DB.Where("id_halte = ?", detailPeminjaman.Id_halte_tujuan).Find(&halteTujuan)
-	models.DB.Where("id_sepeda = ?", detailPeminjaman.Id_sepeda).Find(&sepeda)
+	models.DB.Where("id = ?", detailPeminjaman.Id_sepeda).Find(&sepeda)
 	
 	detailhistoryuser.Id_detail_peminjaman = detailPeminjaman.Id
 	detailhistoryuser.Nama_Peminjam = user.Nama
