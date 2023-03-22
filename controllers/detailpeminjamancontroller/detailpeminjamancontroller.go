@@ -133,7 +133,7 @@ func DetailHistoryUser(c *gin.Context){
 	var sepeda models.Sepeda
 
 	id := c.Param("id")
-	if err := models.DB.Where("id = ?", id).First(&detailPeminjaman).Error; err != nil {
+	if err := models.DB.Where("id_sepeda = ?", id).First(&detailPeminjaman).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
 		println(err)
 	}
