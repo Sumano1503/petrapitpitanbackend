@@ -118,6 +118,7 @@ func main(){
 	auth.GET("/sepedaHalte1", detailsepedahaltecontroller.GetSepedaHalte1)
 	auth.GET("/sepedaHalte2", detailsepedahaltecontroller.GetSepedaHalte2)
 
+
 	auth.GET("/detailpeminjaman", detailpeminjamancontroller.Index)
 	auth.GET("/detailpeminjaman/:id", detailpeminjamancontroller.Show)
 	auth.GET("/detailpeminjamanbyidsepeda/:id", detailpeminjamancontroller.ShowIdSep)
