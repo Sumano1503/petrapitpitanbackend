@@ -9,7 +9,7 @@ type User struct {
 }
 
 type DetailPeminjaman struct{
-	Id_detail_peminjaman int64 `gorm:"primary_key;auto_increment; unique" json:"id"`
+	Id int64 `gorm:"primary_key;auto_increment; unique" json:"id"`
 	Nama_Peminjam string `gorm:"size:255;not null;" json:"nama_peminjam"`
 	Nrp_Peminjam string `gorm:"size:255;not null;" json:"nrp_peminjam"`
 	Tanggal string `gorm:"size:255;not null;" json:"tanggal"`

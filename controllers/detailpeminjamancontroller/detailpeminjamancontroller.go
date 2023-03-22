@@ -133,13 +133,13 @@ func DetailHistoryUser(c *gin.Context){
 	var sepeda models.Sepeda
 
 	id := c.Param("id")
-	models.DB.Where("id_detail_peminjaman = ?", id).First(&detailPeminjaman)
+	models.DB.Where("id = ?", id).First(&detailPeminjaman)
 	models.DB.Where("id = ?", detailPeminjaman.Id_user).First(&user)
 	models.DB.Where("id_halte = ?", detailPeminjaman.Id_halte_asal).First(&halteAsal)
 	models.DB.Where("id_halte = ?", detailPeminjaman.Id_halte_tujuan).First(&halteTujuan)
 	models.DB.Where("id_sepeda = ?", detailPeminjaman.Id_sepeda).First(&sepeda)
 	
-	detailhistoryuser.Id_detail_peminjaman = detailPeminjaman.Id_detail_peminjaman
+	detailhistoryuser.Id_detail_peminjaman = detailPeminjaman.Id
 	detailhistoryuser.Nama_Peminjam = user.Nama
 	detailhistoryuser.Nrp_Peminjam = detailPeminjaman.Nrp_Peminjam
 	detailhistoryuser.Tanggal = detailPeminjaman.Tanggal
