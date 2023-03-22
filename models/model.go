@@ -55,5 +55,5 @@ type Sepeda struct{
 	Merk string `gorm:"size:100;not null;" json:"merk"`
 	Ukuran string `gorm:"size:100;not null;" json:"ukuran"`
 	Tipe string `gorm:"size:100;not null;" json:"tipe"`
-	Gambar string `gorm:"size:100;not null;" json:"gambar"`
+	Gambar string `gorm:"size:500;not null;" json:"gambar"`
 }
