@@ -120,10 +120,10 @@ func main(){
 	auth.GET("/sepedaHalte2", detailsepedahaltecontroller.GetSepedaHalte2)
 
 
-	// auth.GET("/detailpeminjaman", detailpeminjamancontroller.Index)
+	auth.GET("/detailpeminjaman", detailpeminjamancontroller.Index)
 	auth.GET("/detailpeminjaman/:id", detailpeminjamancontroller.Show)
 	auth.GET("/detailpeminjamanbyidsepeda/:id", detailpeminjamancontroller.ShowIdSep)
-	auth.GET("/detailpeminjaman", detailpeminjamancontroller.Create)
+	auth.POST("/detailpeminjaman", detailpeminjamancontroller.Create)
 	auth.PUT("/detailpeminjaman/:id", detailpeminjamancontroller.Update)
 	auth.DELETE("/detailpeminjaman", detailpeminjamancontroller.Delete)
 	auth.GET("/historyUser/:email", detailpeminjamancontroller.HistoryUser)
