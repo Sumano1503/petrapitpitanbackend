@@ -153,7 +153,7 @@ func CekSepedaTerpakai(c *gin.Context){
 
 	models.DB.Where("id_halte = ? AND status = ?", idHalte, "available").Find(&detailSepedaHalte)
 
-	if(detailSepedaHalte == nil){
+	if(len(detailSepedaHalte)<1){
 		c.JSON(http.StatusBadGateway, gin.H{"pesan": "Semua Sepeda Terpakai"})
 		return
 	}else{
