@@ -47,13 +47,20 @@ func ShowIdSep(c *gin.Context) {
 }
 
 func Create(c *gin.Context) {
-	var detailPeminjaman models.DetailPeminjaman
-	if err := c.ShouldBindJSON(&detailPeminjaman); err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return 
+	var detailSepedaHalte []models.DetailSepedaHalte
+	// var detailPeminjaman models.DetailPeminjaman
+	// if err := c.ShouldBindJSON(&detailPeminjaman); err != nil {
+	// 	c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 	return 
+	// }
+
+	var input struct {
+		id json.Number
 	}
-	models.DB.Create(&detailPeminjaman)
-	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": detailPeminjaman})
+
+	models.DB.Where("id_halte = ? AND status = ?", input.id, "available").Find(&detailSepedaHalte)
+	
+	c.JSON(http.StatusOK, gin.H{"detailSepedaHalte": detailSepedaHalte})
 }
 
 func Update(c *gin.Context) {
