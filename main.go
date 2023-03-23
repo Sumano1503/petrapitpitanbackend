@@ -140,6 +140,8 @@ func main(){
 	auth.PUT("/sepeda/:id", sepedacontroller.Update)
 	auth.DELETE("/sepeda/:id", sepedacontroller.Delete)
 	
+	auth.GET("/sesipeminjaman", sesipeminjamancontroller.getSesi1Halte1)
+
 	r.Run(":8081")
 
 	
