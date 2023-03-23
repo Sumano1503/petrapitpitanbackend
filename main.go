@@ -12,6 +12,7 @@ import (
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/haltecontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/pelanggarancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/sepedacontroller"
+	"github.com/Sumano1503/petrapitpitanbackend/controllers/sesipeminjamancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/usercontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/models"
 	"github.com/gin-gonic/gin"
@@ -140,7 +141,7 @@ func main(){
 	auth.PUT("/sepeda/:id", sepedacontroller.Update)
 	auth.DELETE("/sepeda/:id", sepedacontroller.Delete)
 	
-	auth.GET("/sesipeminjaman", sesipeminjamancontroller.getSesi1Halte1)
+	auth.GET("/sesipeminjaman", sesipeminjamancontroller.GetSesi1Halte1)
 
 	r.Run(":8081")
 
