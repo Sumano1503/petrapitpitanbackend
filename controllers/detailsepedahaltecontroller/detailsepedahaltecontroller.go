@@ -157,7 +157,7 @@ func CekSepedaTerpakai(c *gin.Context){
 		c.JSON(http.StatusBadGateway, gin.H{"pesan": "Semua Sepeda Terpakai"})
 		return
 	}else{
-		c.JSON(http.StatusOK, gin.H{"pesan": "Ada Sepeda Yang Tersedia"})
+		c.JSON(http.StatusOK, gin.H{"pesan": "Ada Sepeda Yang Tersedia ", "detailSepedaHalte": detailSepedaHalte})
 		return
 	}
 }
