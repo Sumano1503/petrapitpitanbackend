@@ -49,15 +49,15 @@ func ShowIdSep(c *gin.Context) {
 func Create(c *gin.Context) {
 	var detailSepedaHalte models.DetailSepedaHalte
 	var detailPeminjaman models.DetailPeminjaman
-	var cekdDetailPeminjaman []models.DetailPeminjaman
+	// var cekdDetailPeminjaman []models.DetailPeminjaman
 	if err := c.ShouldBindJSON(&detailPeminjaman); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
 	}
 
-	models.DB.Find(&cekdDetailPeminjaman)
+	models.DB.Where("sesi = ? AND id_halte_asal = ? AND status = ?")
 
-	
+
 
 	models.DB.Where("id_halte = ? AND status = ?", detailPeminjaman.Id_halte_asal, "available").First(&detailSepedaHalte)
 	

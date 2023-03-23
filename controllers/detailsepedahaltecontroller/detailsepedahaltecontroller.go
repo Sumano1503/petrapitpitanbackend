@@ -145,3 +145,19 @@ func GetSepedaHalte2(c *gin.Context) {
 	
 	c.JSON(http.StatusOK, gin.H{"sepedaHalte2": sepedaHalte2})
 }
+
+func CekSepedaTerpakai(c *gin.Context){
+	var detailSepedaHalte []models.DetailSepedaHalte;
+
+	idHalte := c.Param("idHalte")
+
+	models.DB.Where("id_halte = ? AND status = ?", idHalte, "available").Find(&detailSepedaHalte)
+
+	if(detailSepedaHalte == nil){
+		c.JSON(http.StatusBadGateway, gin.H{"pesan": "Semua Sepeda Terpakai"})
+		return
+	}else{
+		c.JSON(http.StatusOK, gin.H{"pesan": "Ada Sepeda Yang Tersedia"})
+		return
+	}
+}
