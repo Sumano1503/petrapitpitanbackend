@@ -11,7 +11,7 @@ func GetSesi1Halte1(c *gin.Context) {
 	var sesipeminjaman []models.SesiPeminjaman
 
 	if err := models.DB.Where("sesi = ? AND id_halte = ?", 1, 1).Find(&sesipeminjaman).Error; err != nil {
-		c.AbortWithStatus(http.StatusNotFound)
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		// c.AbortWithStatus(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
