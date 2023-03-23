@@ -64,4 +64,5 @@ type SesiPeminjaman struct{
 	Waktu_Peminjaman int64 `gorm:"size:100;not null;" json:"waktu_peminjaman"`
 	Batas_Waktu_Penminjaman int64 `gorm:"size:100;not null;" json:"batas_waktu_peminjaman"`
 	Status string `gorm:"size:100;not null;" json:"status"`
+	Id_Halte int64 `gorm:"size:100;not null;" json:"id_halte"`
 }
