@@ -57,3 +57,11 @@ type Sepeda struct{
 	Tipe string `gorm:"size:100;not null;" json:"tipe"`
 	Gambar string `gorm:"size:500;not null;" json:"gambar"`
 }
+
+type SesiPeminjaman struct{
+	Id int64 `gorm:"primary_key;auto_increment; unique" json:"id"`
+	Sesi int64 `gorm:"size:100;not null;" json:"sesi"`
+	Waktu_Peminjaman int64 `gorm:"size:100;not null;" json:"waktu_peminjaman"`
+	Batas_Waktu_Penminjaman int64 `gorm:"size:100;not null;" json:"batas_waktu_peminjaman"`
+	Status string `gorm:"size:100;not null;" json:"status"`
+}
