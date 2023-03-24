@@ -151,7 +151,7 @@ func CekSepedaTerpakai(c *gin.Context){
 
 	idHalte := c.Param("idHalte")
 
-	models.DB.Where("id_halte = ? AND status = ?", idHalte, "available").Find(&detailSepedaHalte)
+	models.DB.Where("id_halte = ? AND status = ?", idHalte, "available").First(&detailSepedaHalte)
 
 	if(len(detailSepedaHalte)<1){
 		c.JSON(http.StatusBadGateway, gin.H{"pesan": "Semua Sepeda Terpakai"})
