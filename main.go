@@ -90,7 +90,7 @@ func main(){
 	auth.GET("/login", Login())
 
 	auth.GET("/user", usercontroller.Index)
-	auth.GET("/getUserById/:email", usercontroller.Show)
+	auth.GET("/getUserByEmail/:email", usercontroller.Show)
 	auth.GET("/cekuser/:email", usercontroller.CekAdmin)
 	auth.POST("/user", usercontroller.Create)
 	auth.PUT("/user/:id", usercontroller.Update)
