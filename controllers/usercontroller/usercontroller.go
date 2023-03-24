@@ -81,7 +81,7 @@ func Show(c *gin.Context) {
 
 	email := c.Param("email")
 
-	if err := models.DB.First(&users, email).Error; err != nil {
+	if err := models.DB.Where("email = ?", email).Find(&users).Error; err != nil {
 		switch err {
 		case gorm.ErrRecordNotFound:
 			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
