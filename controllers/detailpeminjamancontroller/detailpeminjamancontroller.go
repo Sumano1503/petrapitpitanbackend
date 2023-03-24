@@ -54,10 +54,11 @@ func Create(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
 	}
-	models.DB.Where("id_halte = ? AND status = ?", detailPeminjaman.Id_halte_asal, "available").First(&detailSepedaHalte)
-	c.JSON(http.StatusOK, gin.H{"detailSepedaHalte": detailSepedaHalte.Id_sepeda})
 
-	
+	models.DB.Create(&detailPeminjaman)
+	detailSepedaHalte.Status = "dipinjam"
+	models.DB.Where("id_halte = ? AND id_sepeda = ?", detailPeminjaman.Id_halte_asal, detailPeminjaman.Id_sepeda).Updates(&detailSepedaHalte)
+	c.JSON(http.StatusOK, gin.H{"pesan": "berhasil di tambahkan", "detailPeminjaman": detailPeminjaman, "detailSepedaHalte": detailSepedaHalte})
 }
 
 func Update(c *gin.Context) {
