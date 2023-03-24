@@ -79,9 +79,9 @@ func UserNonAktif(c *gin.Context) {
 func Show(c *gin.Context) {
 	var users models.User
 
-	id := c.Param("id")
+	email := c.Param("email")
 
-	if err := models.DB.First(&users, id).Error; err != nil {
+	if err := models.DB.First(&users, email).Error; err != nil {
 		switch err {
 		case gorm.ErrRecordNotFound:
 			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
