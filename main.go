@@ -129,6 +129,7 @@ func main(){
 	auth.DELETE("/detailpeminjaman", detailpeminjamancontroller.Delete)
 	auth.GET("/historyUser/:email", detailpeminjamancontroller.HistoryUser)
 	auth.GET("/detailHistoryUser/:id", detailpeminjamancontroller.DetailHistoryUser)
+	auth.GET("/cekReservasi/:id", detailpeminjamancontroller.CekDetailPeminjaman)
 
 	auth.GET("/detailpelanggaran", detailpelanggarancontroller.Index)
 	auth.GET("/detailpelanggaran/:id", detailpelanggarancontroller.Show)
@@ -148,6 +149,4 @@ func main(){
 	auth.GET("/sesiBhalteB", sesipeminjamancontroller.GetSesi2Halte2)
 
 	r.Run(":8081")
-
-	
 }
