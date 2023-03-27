@@ -99,7 +99,7 @@ func CekReservasi(c *gin.Context){
 
 	id := c.Param("id")
 
-	if err := models.DB.Where("id_user = ? AND statys = ?", id, "on Progress").First(&detailPeminjaman).Error; err != nil {
+	if err := models.DB.Where("id_user = ? AND status = ?", id, "on Progress").First(&detailPeminjaman).Error; err != nil {
 		switch err {
 		case gorm.ErrRecordNotFound:
 			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
