@@ -146,6 +146,27 @@ func GetSepedaHalte2(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"sepedaHalte2": sepedaHalte2})
 }
 
+func GetSepedaDipinjam(c *gin.Context) {
+	var detailSepedaHalte []models.DetailSepedaHalte;
+	var sepeda []models.Sepeda;
+	var sepedaDipinjam []models.Sepeda;
+	models.DB.Find(&detailSepedaHalte)
+		// c.JSON(http.StatusOK, gin.H{"detailSepedaHalte": detailSepedaHalte})
+	models.DB.Find(&sepeda)
+		// c.JSON(http.StatusOK, gin.H{"sepeda": sepeda})
+	models.DB.Where("status = ?", "dipinjam").Find(&detailSepedaHalte)
+	for i:= 0; i < len(detailSepedaHalte); i++ {
+		for j:= 0; j < len(sepeda); j++ {
+			if detailSepedaHalte[i].Id_sepeda == sepeda[j].Id {
+				sepedaDipinjam = append(sepedaDipinjam, sepeda[j])
+			}
+		}
+	}
+	
+	
+	c.JSON(http.StatusOK, gin.H{"sepedaDipinjam": sepedaDipinjam})
+}
+
 func CekSepedaTerpakai(c *gin.Context){
 	var detailSepedaHalte []models.DetailSepedaHalte;
 
