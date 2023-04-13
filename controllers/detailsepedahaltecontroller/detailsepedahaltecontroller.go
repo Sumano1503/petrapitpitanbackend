@@ -57,7 +57,7 @@ func Update(c *gin.Context) {
 		return 
 	}
 
-	if models.DB.Model(&detailSepedaHalte).Where("id = ?", id).Updates(&detailSepedaHalte).RowsAffected == 0 {
+	if models.DB.Model(&detailSepedaHalte).Where("id_sepeda = ?", id).Updates(&detailSepedaHalte).RowsAffected == 0 {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "TIDAK DAPAT MENGUPDATE"})
 		return 
 	}
