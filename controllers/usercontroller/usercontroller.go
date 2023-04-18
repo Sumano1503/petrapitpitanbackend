@@ -42,6 +42,18 @@ func Index(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"user": users})
 }
 
+func GetAdmin(c *gin.Context) {
+	var users []models.User
+
+	err := models.DB.Where("role = ?", "SuperAdmin").Find(&users)
+
+	if err!= nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
+	}
+	c.JSON(http.StatusOK, gin.H{"user": users})
+}
+
+
 func CekAdmin(c *gin.Context) {
 	var users models.User
 
