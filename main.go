@@ -14,7 +14,7 @@ import (
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/sepedacontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/sesipeminjamancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/usercontroller"
-	"github.com/Sumano1503/petrapitpitanbackend/controllers/notficationcontroller"
+	"github.com/Sumano1503/petrapitpitanbackend/controllers/notificationcontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/models"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
@@ -151,7 +151,7 @@ func main(){
 	auth.GET("/sesiBhalteA", sesipeminjamancontroller.GetSesi2Halte1)
 	auth.GET("/sesiBhalteB", sesipeminjamancontroller.GetSesi2Halte2)
 
-	auth.POST("/webHook", notificationcontroller.webHook)
+	auth.POST("/webHook", notificationcontroller.)
 
 	r.Run(":8081")
 }
