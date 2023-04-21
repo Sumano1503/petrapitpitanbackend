@@ -3,7 +3,6 @@ package usercontroller
 import (
 	"net/http"
 
-	"github.com/OneSignal/onesignal-go-api"
 	"github.com/Sumano1503/petrapitpitanbackend/models"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -14,12 +13,6 @@ func Create(c *gin.Context) {
 	if err := c.ShouldBindJSON(&users); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
-	}
-
-	err := onesignal.RegisterDevice(player.DeviceID)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
 	}
 
 	models.DB.Create(&users)

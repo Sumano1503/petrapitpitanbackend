@@ -3,6 +3,7 @@ module github.com/Sumano1503/petrapitpitanbackend
 go 1.20
 
 require (
+	github.com/OneSignal/onesignal-go-api v1.0.4
 	github.com/gin-gonic/gin v1.9.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	gorm.io/driver/mysql v1.4.7
@@ -10,7 +11,6 @@ require (
 )
 
 require (
-	github.com/OneSignal/onesignal-go-api v1.0.4 // indirect
 	github.com/bytedance/sonic v1.8.0 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
