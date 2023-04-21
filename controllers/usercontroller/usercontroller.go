@@ -6,6 +6,7 @@ import (
 	"github.com/Sumano1503/petrapitpitanbackend/models"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+	"github.com/OneSignal/onesignal-go-api"
 )
 func Create(c *gin.Context) {
 	var users models.User
@@ -13,6 +14,12 @@ func Create(c *gin.Context) {
 	if err := c.ShouldBindJSON(&users); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
+	}
+
+	err := onesignalapi.RegisterDevice(player.DeviceID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	models.DB.Create(&users)
