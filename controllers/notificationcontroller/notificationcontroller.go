@@ -42,7 +42,7 @@ func PushNotification(c *gin.Context){
 
 	payload, err := json.Marshal(map[string]interface{}{
 		"app_id":                  "59865fb1-ab37-4f3a-9f21-e41e33194070",
-		"include_external_user_ids": AdminId,
+		"include_external_user_ids": reqBody.ExternalIDs,
 		"contents":                "Telah terjadi pelanggaran yang dilakukan peminjam",
 		"headings":                "Pelanggaran!!!!!",
 		"subtitle":                "Mohon cek detail pelangaran",
