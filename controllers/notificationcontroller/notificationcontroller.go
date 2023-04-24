@@ -27,8 +27,6 @@ func PushNotification(c *gin.Context){
 		AdminId = append(AdminId, ("admn"+strconv.Itoa(int(user.Id))))
 	}
 
-	c.JSON(http.StatusOK, gin.H{"user": AdminId})
-
 	//get data dari request body(external id peminjam, dan tipe notifikasi)
 	var reqBody struct {
 		ExternalIDs string `json:"external_ids"`
