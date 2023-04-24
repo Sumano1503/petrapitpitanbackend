@@ -53,16 +53,21 @@ func PushNotification(c *gin.Context){
 	}
 
 	var respBody map[string]interface{}
-	if err := json.Unmarshal(body, &respBody); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to parse push notification response"})
-		return
-	}
+if err := json.Unmarshal(body, &respBody); err != nil {
+    c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to parse push notification response"})
+    return
+}
 
-	success, ok := respBody["success"].(float64)
-	if !ok || success != 1 {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to send push notification to user"})
-		return
-	}
+if success, ok := respBody["success"].(float64); !ok || success != 1 {
+    c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to send push notification to user"})
+    return
+}
 
-	c.JSON(http.StatusOK, gin.H{"message": "push notification sent"})
+notificationID, ok := respBody["id"].(string)
+if !ok {
+    c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to get notification ID"})
+    return
+}
+
+c.JSON(http.StatusOK, gin.H{"message": "push notification sent", "notification_id": notificationID})
 }
