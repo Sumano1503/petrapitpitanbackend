@@ -154,5 +154,5 @@ func main(){
 	auth.POST("/PushNotificationUser", notificationcontroller.PushNotificationUser)
 	auth.POST("/PushNotificationAdmin", notificationcontroller.PushNotificationAdmin)
 
-	r.Run(":8081")
+	r.Run(":8082")
 }

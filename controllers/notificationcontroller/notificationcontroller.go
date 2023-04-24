@@ -5,7 +5,9 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 
+	"github.com/Sumano1503/petrapitpitanbackend/models"
 	"github.com/gin-gonic/gin"
 )
 
@@ -77,9 +79,21 @@ func PushNotificationUser(c *gin.Context){
 }
 
 func PushNotificationAdmin(c *gin.Context){
+	var users []models.User
+
+	err := models.DB.Where("role = ?", "Admin").Find(&users).Error
+
+	if err == nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
+	}
+
+	var externalIDs []string
+	for _, user := range users {
+		externalIDs = append(externalIDs, "admn"+strconv.Itoa(int(user.Id)))
+	}
+
 	//get data dari request body(external id peminjam, dan tipe notifikasi)
 	var reqBody struct {
-		ExternalIDs []string `json:"external_ids"`
 		Message     string   `json:"message"`
 		Headings   string   `json:"headings"`
 		Subtitle  string   `json:"subtitle"`
@@ -94,7 +108,7 @@ func PushNotificationAdmin(c *gin.Context){
 	// Membuat payload untuk notifikasi push
 	payload, err := json.Marshal(map[string]interface{}{
 		"app_id":                  "59865fb1-ab37-4f3a-9f21-e41e33194070",
-		"include_external_user_ids": reqBody.ExternalIDs,
+		"include_external_user_ids": externalIDs,
 		"contents":                map[string]string{"en": reqBody.Message},
 		"headings":                map[string]string{"en": reqBody.Headings},
 		"subtitle":                map[string]string{"en": reqBody.Subtitle},
