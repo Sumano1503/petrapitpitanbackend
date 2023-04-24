@@ -63,5 +63,11 @@ func PushNotification(c *gin.Context){
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "push notification sent"})
+	// Cek apakah ada error dari OneSignal
+	if _, ok := respBody["errors"]; ok {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": respBody["errors"]})
+		return
+	}
+
+	
 }
