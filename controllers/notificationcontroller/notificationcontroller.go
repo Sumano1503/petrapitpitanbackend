@@ -31,14 +31,16 @@ func PushNotification(c *gin.Context){
 		AdminId = append(AdminId, ("admn"+strconv.Itoa(int(user.Id))))
 	}
 	
-	c.JSON(http.StatusOK, gin.H{"AAAAA": AdminId})
-	c.JSON(http.StatusOK, gin.H{"bbbbb": reqBody.ExternalIDs})
+	
 	
 
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
 	}
+
+	c.JSON(http.StatusOK, gin.H{"AAAAA": AdminId})
+	c.JSON(http.StatusOK, gin.H{"bbbbb": reqBody.ExternalIDs})
 
 	payload, err := json.Marshal(map[string]interface{}{
 		"app_id":                  "59865fb1-ab37-4f3a-9f21-e41e33194070",
