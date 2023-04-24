@@ -39,6 +39,8 @@ func PushNotification(c *gin.Context){
 		return 
 	}
 
+	reqBody.ExternalIDs = append(reqBody.ExternalIDs, AdminId...)
+
 	c.JSON(http.StatusOK, gin.H{"AAAAA": AdminId})
 	c.JSON(http.StatusOK, gin.H{"bbbbb": reqBody.ExternalIDs})
 
