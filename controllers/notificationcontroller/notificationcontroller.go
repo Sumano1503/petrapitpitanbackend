@@ -62,7 +62,6 @@ func PushNotification(c *gin.Context){
 
 	req.Header.Add("Authorization", "Basic ZDFhOGQ4MmYtNzZmMy00Zjg1LTkyYzctNmIyNDI0MGJhNjU0")
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Accept", "application/json")
 
 	resp, err := client.Do(req)
 		if err != nil {
