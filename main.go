@@ -151,7 +151,7 @@ func main(){
 	auth.GET("/sesiBhalteA", sesipeminjamancontroller.GetSesi2Halte1)
 	auth.GET("/sesiBhalteB", sesipeminjamancontroller.GetSesi2Halte2)
 
-	auth.POST("/webHook", notificationcontroller.WebHook)
+	auth.POST("/PushNotification", notificationcontroller.PushNotification)
 
 	r.Run(":8081")
 }
