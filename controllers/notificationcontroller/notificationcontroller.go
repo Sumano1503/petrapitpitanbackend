@@ -5,30 +5,11 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
-	"strconv"
 
-	"github.com/Sumano1503/petrapitpitanbackend/models"
 	"github.com/gin-gonic/gin"
 )
 
 func PushNotification(c *gin.Context){
-	//get id admin
-	var users []models.User
-
-	Admin := models.DB.Where("role = ?", "Admin").Find(&users)
-
-	if Admin == nil {
-		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
-	}
-
-	var AdminId []string
-
-	for _, user := range users {
-		AdminId = append(AdminId, ("admn"+strconv.Itoa(int(user.Id))))
-	}
-
-
-
 	//get data dari request body(external id peminjam, dan tipe notifikasi)
 	var reqBody struct {
 		ExternalIDs string `json:"external_ids"`
@@ -44,8 +25,6 @@ func PushNotification(c *gin.Context){
 		"app_id":                  "59865fb1-ab37-4f3a-9f21-e41e33194070",
 		"include_external_user_ids": reqBody.ExternalIDs,
 		"contents":                "Telah terjadi pelanggaran yang dilakukan peminjam",
-		"headings":                "Pelanggaran!!!!!",
-		"subtitle":                "Mohon cek detail pelangaran",
 	})
 
 	if err != nil {
