@@ -12,7 +12,7 @@ import (
 func PushNotification(c *gin.Context){
 	//get data dari request body(external id peminjam, dan tipe notifikasi)
 	var reqBody struct {
-		ExternalIDs string `json:"external_ids"`
+		ExternalIDs []string `json:"external_ids"`
 		Message     string   `json:"message"`
 	}
 
@@ -69,5 +69,5 @@ func PushNotification(c *gin.Context){
 		return
 	}
 
-	
+
 }
