@@ -12,11 +12,7 @@ import (
 )
 
 func PushNotification(c *gin.Context){
-	var reqBody struct {
-		ExternalIDs []string `json:"external_ids"`
-		Message     string   `json:"message"`
-	}
-
+	//get id admin
 	var users []models.User
 
 	Admin := models.DB.Where("role = ?", "Admin").Find(&users)
@@ -30,26 +26,28 @@ func PushNotification(c *gin.Context){
 	for _, user := range users {
 		AdminId = append(AdminId, ("admn"+strconv.Itoa(int(user.Id))))
 	}
-	
-	
-	
+
+	c.JSON(http.StatusOK, gin.H{"user": AdminId})
+
+	//get data dari request body(external id peminjam, dan tipe notifikasi)
+	var reqBody struct {
+		ExternalIDs []string `json:"external_ids"`
+		tipe     int   `json:"tipe"`
+	}
 
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
 	}
-
-	reqBody.ExternalIDs = append(reqBody.ExternalIDs, AdminId...)
-
-	c.JSON(http.StatusOK, gin.H{"AAAAA": AdminId})
-	c.JSON(http.StatusOK, gin.H{"bbbbb": reqBody.ExternalIDs})
-
+	
 	payload, err := json.Marshal(map[string]interface{}{
 		"app_id":                  "59865fb1-ab37-4f3a-9f21-e41e33194070",
 		"include_external_user_ids": reqBody.ExternalIDs,
-		"contents":                map[string]string{"en": reqBody.Message},
-		
+		"contents":                "Waktu Peminjaman Telah Habis Mohon Segera Mengembalikan Sepeda!!!!",
+		"headings":                "Waktu Peminjaman Telah Habis",
+		"subtitle":                "Anda Akan Dinonaktifkan Jika Tidak Segera Mengembalikan Sepeda",
 	})
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create push notification payload"})
 		return
@@ -87,5 +85,7 @@ func PushNotification(c *gin.Context){
 
 	notificationID := respBody["id"].(string)
 
-c.JSON(http.StatusOK, gin.H{"message": "push notification sent", "notification_id": notificationID})
+	c.JSON(http.StatusOK, gin.H{"message": "push notification sent", "notification_id": notificationID})
+
+	
 }
