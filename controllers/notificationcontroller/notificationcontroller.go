@@ -24,6 +24,7 @@ func PushNotification(c *gin.Context){
 
 	// Membuat payload untuk notifikasi push
 	if(reqBody.Tipe == 1){
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Tipe 1"})
 		payload, err := json.Marshal(map[string]interface{}{
 			"app_id":                  "59865fb1-ab37-4f3a-9f21-e41e33194070",
 			"include_external_user_ids": reqBody.ExternalIDs,
@@ -74,6 +75,7 @@ func PushNotification(c *gin.Context){
 	
 		c.JSON(http.StatusOK, gin.H{"success": "push notification sent"})
 	}else{
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Tipe 2"})
 		payload, err := json.Marshal(map[string]interface{}{
 			"app_id":                  "59865fb1-ab37-4f3a-9f21-e41e33194070",
 			"include_external_user_ids": reqBody.ExternalIDs,
