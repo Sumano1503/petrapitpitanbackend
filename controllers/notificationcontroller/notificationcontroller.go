@@ -23,6 +23,7 @@ func PushNotification(c *gin.Context){
 		"app_id":                  "59865fb1-ab37-4f3a-9f21-e41e33194070",
 		"include_external_user_ids": reqBody.ExternalIDs,
 		"contents":                map[string]string{"en": reqBody.Message},
+		
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create push notification payload"})
@@ -38,6 +39,7 @@ func PushNotification(c *gin.Context){
 
 	req.Header.Add("Authorization", "Basic ZDFhOGQ4MmYtNzZmMy00Zjg1LTkyYzctNmIyNDI0MGJhNjU0")
 	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Accept", "application/json")
 
 	resp, err := client.Do(req)
 		if err != nil {
