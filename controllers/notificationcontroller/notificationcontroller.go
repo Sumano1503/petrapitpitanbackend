@@ -5,7 +5,9 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 
+	"github.com/Sumano1503/petrapitpitanbackend/models"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,6 +16,26 @@ func PushNotification(c *gin.Context){
 		ExternalIDs []string `json:"external_ids"`
 		Message     string   `json:"message"`
 	}
+
+	var users []models.User
+
+	Admin := models.DB.Where("role = ?", "Admin").Find(&users)
+
+	if Admin == nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
+	}
+
+	var AdminId []string
+
+	for _, user := range users {
+		AdminId = append(AdminId, ("admn"+strconv.Itoa(int(user.Id))))
+	}
+
+	reqBody.ExternalIDs = append(reqBody.ExternalIDs, AdminId...)
+	
+	c.JSON(http.StatusOK, gin.H{"AAAAA": reqBody.ExternalIDs})
+	
+
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
