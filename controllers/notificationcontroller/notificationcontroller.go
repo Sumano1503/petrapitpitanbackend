@@ -72,6 +72,8 @@ func PushNotificationUser(c *gin.Context){
 		c.JSON(http.StatusInternalServerError, gin.H{"error": respBody["errors"]})
 		return
 	}
+
+	c.JSON(http.StatusOK, gin.H{"success": "push notification sent"})
 }
 
 func PushNotificationAdmin(c *gin.Context){
@@ -138,5 +140,5 @@ func PushNotificationAdmin(c *gin.Context){
 		return
 	}
 
-
+	c.JSON(http.StatusOK, gin.H{"success": "push notification sent"})
 }
