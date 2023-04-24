@@ -41,7 +41,7 @@ func PushNotification(c *gin.Context){
 
 	resp, err := client.Do(req)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to send push notification"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to send push notification client"})
 			return
 		}
 		defer resp.Body.Close()
@@ -60,7 +60,7 @@ func PushNotification(c *gin.Context){
 
 	success, ok := respBody["success"].(float64)
 	if !ok || success != 1 {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to send push notification"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to send push notification to user"})
 		return
 	}
 
