@@ -30,10 +30,9 @@ func PushNotification(c *gin.Context){
 	for _, user := range users {
 		AdminId = append(AdminId, ("admn"+strconv.Itoa(int(user.Id))))
 	}
-
-	reqBody.ExternalIDs = append(reqBody.ExternalIDs, AdminId...)
 	
-	c.JSON(http.StatusOK, gin.H{"AAAAA": reqBody.ExternalIDs})
+	c.JSON(http.StatusOK, gin.H{"AAAAA": AdminId})
+	c.JSON(http.StatusOK, gin.H{"bbbbb": reqBody.ExternalIDs})
 	
 
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
