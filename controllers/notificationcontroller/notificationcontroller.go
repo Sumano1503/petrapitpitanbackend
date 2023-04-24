@@ -44,7 +44,6 @@ func PushNotification(c *gin.Context){
 		"app_id":                  "59865fb1-ab37-4f3a-9f21-e41e33194070",
 		"include_external_user_ids": reqBody.ExternalIDs,
 		"contents":                "Waktu Peminjaman Telah Habis Mohon Segera Mengembalikan Sepeda!!!!",
-		"headings":                "Waktu Peminjaman Telah Habis",
 		"subtitle":                "Anda Akan Dinonaktifkan Jika Tidak Segera Mengembalikan Sepeda",
 	})
 
