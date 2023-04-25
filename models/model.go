@@ -63,8 +63,8 @@ type Sepeda struct{
 type SesiPeminjaman struct{
 	Id int64 `gorm:"primary_key;auto_increment; unique" json:"id"`
 	Sesi int64 `gorm:"size:100;not null;" json:"sesi"`
-	Waktu_Peminjaman int64 `gorm:"size:100;not null;" json:"waktu_peminjaman"`
-	Batas_Waktu_Penminjaman int64 `gorm:"size:100;not null;" json:"batas_waktu_peminjaman"`
+	Waktu_Peminjaman string `gorm:"size:100;not null;" json:"waktu_peminjaman"`
+	Batas_Waktu_Penminjaman string `gorm:"size:100;not null;" json:"batas_waktu_peminjaman"`
 	Status string `gorm:"size:100;not null;" json:"status"`
 	Id_Halte int64 `gorm:"size:100;not null;" json:"id_halte"`
 }
