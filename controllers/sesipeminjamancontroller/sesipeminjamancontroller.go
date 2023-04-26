@@ -47,3 +47,23 @@ func GetSesi2Halte2(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": sesipeminjaman})
 }
+
+func GetSesi3Halte1(c *gin.Context) {
+	var sesipeminjaman []models.SesiPeminjaman
+
+	if err := models.DB.Where("sesi = ? AND id_halte = ?", 3, 1).Find(&sesipeminjaman).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": sesipeminjaman})
+}
+
+func GetSesi3Halte2(c *gin.Context) {
+	var sesipeminjaman []models.SesiPeminjaman
+
+	if err := models.DB.Where("sesi = ? AND id_halte = ?", 3, 2).Find(&sesipeminjaman).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": sesipeminjaman})
+}

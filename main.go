@@ -146,10 +146,12 @@ func main(){
 	auth.PUT("/sepeda/:id", sepedacontroller.Update)
 	auth.DELETE("/sepeda/:id", sepedacontroller.Delete)
 	
-	auth.GET("/sesiAhalteA", sesipeminjamancontroller.GetSesi1Halte1)
-	auth.GET("/sesiAhalteB", sesipeminjamancontroller.GetSesi1Halte2)
-	auth.GET("/sesiBhalteA", sesipeminjamancontroller.GetSesi2Halte1)
-	auth.GET("/sesiBhalteB", sesipeminjamancontroller.GetSesi2Halte2)
+	auth.GET("/sesi1halte1", sesipeminjamancontroller.GetSesi1Halte1)
+	auth.GET("/sesi1halte2", sesipeminjamancontroller.GetSesi1Halte2)
+	auth.GET("/sesi2halte1", sesipeminjamancontroller.GetSesi2Halte1)
+	auth.GET("/sesi2halte2", sesipeminjamancontroller.GetSesi2Halte2)
+	auth.GET("/sesi3halte1", sesipeminjamancontroller.GetSesi3Halte1)
+	auth.GET("/sesi3halte2", sesipeminjamancontroller.GetSesi3Halte2)
 
 	auth.POST("/PushNotificationUser", notificationcontroller.PushNotificationUser)
 	auth.POST("/PushNotificationAdmin", notificationcontroller.PushNotificationAdmin)
