@@ -34,6 +34,7 @@ type DetailPelanggaran struct{
 
 type Pelanggaran struct{
 	Id_pelanggaran int64 `gorm:"primary_key;auto_increment; unique" json:"id"`
+	Id_detail_peminjaman int64 `gorm:"size:100;not null;" json:"id_detail_peminjaman"`
 	Nama_pelanggaran string `gorm:"size:255;not null;" json:"nama_pelanggaran"`
 }
 
