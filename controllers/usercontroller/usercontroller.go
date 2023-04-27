@@ -32,7 +32,7 @@ func CheckUserSignIn(c *gin.Context){
 		models.DB.Create(&users)
 		c.JSON(http.StatusOK, gin.H{"user": users})
 	}else if userData.Role == "Admin" && userData.Nama == "" {
-		models.DB.Assign(&userData).Updates(&users)
+		models.DB.Updates(&users)
 	}else{
 		c.JSON(http.StatusOK, gin.H{"user": users, "pesan": "user sudah ada"})
 	}
