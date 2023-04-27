@@ -20,17 +20,19 @@ func Create(c *gin.Context) {
 }
 func CheckUserSignIn(c *gin.Context){
 	var users models.User
+	var userData models.User
 
 	if err := c.ShouldBindJSON(&users); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
 	}
 
-	result := models.DB.Where("email = ? ", users.Email).First(&users)
+	result := models.DB.Where("email = ? ", users.Email).First(&userData)
 	if result.Error != nil {
-		
 		models.DB.Create(&users)
 		c.JSON(http.StatusOK, gin.H{"user": users})
+	}else if userData.Role == "Admin" && userData.Nama == "" {
+		models.DB.Assign(&userData).Updates(&users)
 	}else{
 		c.JSON(http.StatusOK, gin.H{"user": users, "pesan": "user sudah ada"})
 	}
