@@ -30,21 +30,6 @@ func Show(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": detailPeminjaman})
 }
 
-func ShowByIdUser(c *gin.Context) {
-	var detailPeminjaman models.DetailPeminjaman
-	id := c.Param("id")
-	if err := models.DB.Order("id DESC").First(&detailPeminjaman, id).Error; err != nil {
-		switch err {
-		case gorm.ErrRecordNotFound:
-			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
-			return 
-		default:
-			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		}
-	}
-	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": detailPeminjaman})
-}
-
 func ShowIdSep(c *gin.Context) {
 	var detailPeminjaman models.DetailPeminjaman
 	id := c.Param("id")
