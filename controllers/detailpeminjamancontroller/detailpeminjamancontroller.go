@@ -30,7 +30,7 @@ func Show(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": detailPeminjaman})
 }
 
-func ShowByIdSepeda(c *gin.Context) {
+func ShowByIdUser(c *gin.Context) {
 	var detailPeminjaman models.DetailPeminjaman
 	id := c.Param("id")
 	if err := models.DB.Where("id_user = ?", id).Last(&detailPeminjaman, id).Error; err != nil {
