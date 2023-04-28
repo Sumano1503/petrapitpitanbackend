@@ -18,6 +18,21 @@ func Index(c *gin.Context) {
 func Show(c *gin.Context) {
 	var detailPeminjaman models.DetailPeminjaman
 	id := c.Param("id")
+	if err := models.DB.First(&detailPeminjaman, id).Error; err != nil {
+		switch err {
+		case gorm.ErrRecordNotFound:
+			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
+			return 
+		default:
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		}
+	}
+	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": detailPeminjaman})
+}
+
+func ShowByIdSepeda(c *gin.Context) {
+	var detailPeminjaman models.DetailPeminjaman
+	id := c.Param("id")
 	if err := models.DB.Where("id_user = ?", id).First(&detailPeminjaman, id).Error; err != nil {
 		switch err {
 		case gorm.ErrRecordNotFound:
