@@ -104,6 +104,7 @@ func main(){
 
 	auth.GET("/pelanggaran", pelanggarancontroller.Index)
 	auth.GET("/pelanggaran/:id", pelanggarancontroller.Show)
+	auth.GET("/getJumlahPelanggaran/:id", pelanggarancontroller.GetJumlahPelanggaranById)
 	auth.POST("/pelanggaran", pelanggarancontroller.Create)
 	auth.PUT("/pelanggaran/:id", pelanggarancontroller.Update)
 	auth.DELETE("/pelanggaran", pelanggarancontroller.Delete)
