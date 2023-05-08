@@ -100,3 +100,15 @@ func GetSesi3(c *gin.Context){
 
 	c.JSON(http.StatusOK, gin.H{"data": sesipeminjaman})
 }
+
+func Create(c *gin.Context){
+	var sesiPeminjaman models.SesiPeminjaman
+
+	if err := c.ShouldBindJSON(&sesiPeminjaman); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return 
+	}
+
+	models.DB.Create(&sesiPeminjaman)
+	c.JSON(http.StatusOK, gin.H{"data": sesiPeminjaman})
+}

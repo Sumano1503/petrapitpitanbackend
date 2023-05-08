@@ -155,9 +155,10 @@ func main(){
 	auth.GET("/sesi1", sesipeminjamancontroller.GetSesi1)
 	auth.GET("/sesi2", sesipeminjamancontroller.GetSesi2)
 	auth.GET("/sesi3", sesipeminjamancontroller.GetSesi3)
+	auth.POST("/sesipeminjaman", sesipeminjamancontroller.Create)
 
 	auth.POST("/PushNotificationUser", notificationcontroller.PushNotificationUser)
 	auth.POST("/PushNotificationAdmin", notificationcontroller.PushNotificationAdmin)
 
-	r.Run(":8082")
+	r.Run(":8084")
 }
