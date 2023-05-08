@@ -148,7 +148,7 @@ func HistoryUser(c *gin.Context){
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": detailPeminjaman})
+	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
 func DetailHistoryUser(c *gin.Context){
