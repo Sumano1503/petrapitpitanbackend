@@ -19,7 +19,7 @@ func GetSesi1Halte1(c *gin.Context) {
 }
 
 func GetSesiHalte(c *gin.Context){
-	// var sesiPeminjaman []models.SesiPeminjaman
+	var sesiPeminjaman []models.SesiPeminjaman
 
 	var input struct{
 		Id_Halte int64 `gorm:"size:100;not null;" json:"id_halte"`
@@ -34,7 +34,13 @@ func GetSesiHalte(c *gin.Context){
 	idHalte:= input.Id_Halte
 	idSesi:=input.Sesi
 
-	c.JSON(http.StatusOK, gin.H{"idHalte": idHalte, "idsesi": idSesi})
+	if result:=models.DB.Where("sesi = ? AND id_halte = ?", idHalte, idSesi).Find(&sesiPeminjaman).Error;result!=nil{
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		// c.AbortWithStatus(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": sesiPeminjaman})
 }
 
 func GetSesi1Halte2(c *gin.Context) {
