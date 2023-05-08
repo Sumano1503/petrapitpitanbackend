@@ -105,6 +105,20 @@ func UserNonAktif(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": users})
 }
+func UserAktif(c *gin.Context) {
+	var users []models.User
+		
+	if err := models.DB.Where("status = aktif").Find(&users).Error; err != nil {
+		switch err {
+		case gorm.ErrRecordNotFound:
+			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
+			return 
+		default:
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		}
+	}
+	c.JSON(http.StatusOK, gin.H{"data": users})
+}
 
 func Show(c *gin.Context) {
 	var users models.User
