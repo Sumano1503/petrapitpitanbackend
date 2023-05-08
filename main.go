@@ -118,8 +118,6 @@ func main(){
 	auth.PUT("/detailsepedahalte/:id", detailsepedahaltecontroller.Update)
 	auth.DELETE("/detailsepedahalte", detailsepedahaltecontroller.Delete)
 	auth.DELETE("/detailsepedahalteDelByIdSepeda/:id", detailsepedahaltecontroller.DeleteByIdSepeda)
-	auth.GET("/sepedaHalte1", detailsepedahaltecontroller.GetSepedaHalte1)
-	auth.GET("/sepedaHalte2", detailsepedahaltecontroller.GetSepedaHalte2)
 	auth.GET("/sepedaDipinjam", detailsepedahaltecontroller.GetSepedaDipinjam)
 	auth.GET("/getSepedaById/:id", detailsepedahaltecontroller.GetSepedaById)
 	auth.GET("/cekSepedaAvail/:idHalte", detailsepedahaltecontroller.CekSepedaTerpakai)
