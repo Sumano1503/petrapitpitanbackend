@@ -30,7 +30,7 @@ func Show(c *gin.Context) {
 
 func GetJumlahPelanggaranById(c *gin.Context) {
 	var countKode1 int64;
-	var countKode2 int64;
+	// var countKode2 int64;
 
 	id := c.Param("id")
 
@@ -39,13 +39,13 @@ func GetJumlahPelanggaranById(c *gin.Context) {
 		return
 	}
 
-	if err := models.DB.Where("id_user = ? AND kode_pelanggaran = ?", id, 2).Count(&countKode2).Error; err != nil {
-		c.AbortWithStatus(http.StatusNotFound)
-		return
-	}
+	// if err := models.DB.Where("id_user = ? AND kode_pelanggaran = ?", id, 2).Count(&countKode2).Error; err != nil {
+	// 	c.AbortWithStatus(http.StatusNotFound)
+	// 	return
+	// }
 
 
-	c.JSON(http.StatusOK, gin.H{"count1": countKode1, "count2" : countKode2})
+	c.JSON(http.StatusOK, gin.H{"count1": countKode1})
 	
 }
 
