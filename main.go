@@ -121,6 +121,7 @@ func main(){
 	auth.GET("/sepedaHalte1", detailsepedahaltecontroller.GetSepedaHalte1)
 	auth.GET("/sepedaHalte2", detailsepedahaltecontroller.GetSepedaHalte2)
 	auth.GET("/sepedaDipinjam", detailsepedahaltecontroller.GetSepedaDipinjam)
+	auth.GET("/getSepedaById/:id", detailsepedahaltecontroller.GetSepedaById)
 	auth.GET("/cekSepedaAvail/:idHalte", detailsepedahaltecontroller.CekSepedaTerpakai)
 
 

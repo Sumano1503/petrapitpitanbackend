@@ -35,6 +35,28 @@ func Show(c *gin.Context) {
 	
 }
 
+func GetSepedaById(c *gin.Context){
+	var detailSepedaHalte []models.DetailSepedaHalte;
+	var sepeda []models.Sepeda;
+	var sepedaHalte1 []models.Sepeda;
+	models.DB.Find(&detailSepedaHalte)
+	id := c.Param("id")
+		// c.JSON(http.StatusOK, gin.H{"detailSepedaHalte": detailSepedaHalte})
+	models.DB.Find(&sepeda)
+		// c.JSON(http.StatusOK, gin.H{"sepeda": sepeda})
+	models.DB.Where("id_halte = ? AND status = ?", id, "available").Find(&detailSepedaHalte)
+	for i:= 0; i < len(detailSepedaHalte); i++ {
+		for j:= 0; j < len(sepeda); j++ {
+			if detailSepedaHalte[i].Id_sepeda == sepeda[j].Id {
+				sepedaHalte1 = append(sepedaHalte1, sepeda[j])
+			}
+		}
+	}
+	
+	
+	c.JSON(http.StatusOK, gin.H{"sepedaHalte1": sepedaHalte1})
+}
+
 func Create(c *gin.Context) {
 	var detailSepedaHalte models.DetailSepedaHalte
 
