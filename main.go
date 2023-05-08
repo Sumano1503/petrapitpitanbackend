@@ -146,12 +146,7 @@ func main(){
 	auth.PUT("/sepeda/:id", sepedacontroller.Update)
 	auth.DELETE("/sepeda/:id", sepedacontroller.Delete)
 	
-	auth.GET("/sesi1halte1", sesipeminjamancontroller.GetSesi1Halte1)
-	auth.GET("/sesi1halte2", sesipeminjamancontroller.GetSesi1Halte2)
-	auth.GET("/sesi2halte1", sesipeminjamancontroller.GetSesi2Halte1)
-	auth.GET("/sesi2halte2", sesipeminjamancontroller.GetSesi2Halte2)
-	auth.GET("/sesi3halte1", sesipeminjamancontroller.GetSesi3Halte1)
-	auth.GET("/sesi3halte2", sesipeminjamancontroller.GetSesi3Halte2)
+	
 	auth.GET("/sesi1", sesipeminjamancontroller.GetSesi1)
 	auth.GET("/sesi2", sesipeminjamancontroller.GetSesi2)
 	auth.GET("/sesi3", sesipeminjamancontroller.GetSesi3)

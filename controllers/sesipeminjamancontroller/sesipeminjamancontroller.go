@@ -7,17 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetSesi1Halte1(c *gin.Context) {
-	var sesipeminjaman []models.SesiPeminjaman
-
-	if err := models.DB.Where("sesi = ? AND id_halte = ?", 1, 1).Find(&sesipeminjaman).Error; err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		// c.AbortWithStatus(http.StatusNotFound, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": sesipeminjaman})
-}
-
 func GetSesiHalte(c *gin.Context){
 	var sesiPeminjaman []models.SesiPeminjaman
 
@@ -41,56 +30,6 @@ func GetSesiHalte(c *gin.Context){
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": sesiPeminjaman})
-}
-
-func GetSesi1Halte2(c *gin.Context) {
-	var sesipeminjaman []models.SesiPeminjaman
-
-	if err := models.DB.Where("sesi = ? AND id_halte = ?", 1, 2).Find(&sesipeminjaman).Error; err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": sesipeminjaman})
-}
-
-func GetSesi2Halte1(c *gin.Context) {
-	var sesipeminjaman []models.SesiPeminjaman
-
-	if err := models.DB.Where("sesi = ? AND id_halte = ?", 2, 1).Find(&sesipeminjaman).Error; err != nil {
-		c.AbortWithStatus(http.StatusNotFound)
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": sesipeminjaman})
-}
-
-func GetSesi2Halte2(c *gin.Context) {
-	var sesipeminjaman []models.SesiPeminjaman
-
-	if err := models.DB.Where("sesi = ? AND id_halte = ?", 2, 2).Find(&sesipeminjaman).Error; err != nil {
-		c.AbortWithStatus(http.StatusNotFound)
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": sesipeminjaman})
-}
-
-func GetSesi3Halte1(c *gin.Context) {
-	var sesipeminjaman []models.SesiPeminjaman
-
-	if err := models.DB.Where("sesi = ? AND id_halte = ?", 3, 1).Find(&sesipeminjaman).Error; err != nil {
-		c.AbortWithStatus(http.StatusNotFound)
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": sesipeminjaman})
-}
-
-func GetSesi3Halte2(c *gin.Context) {
-	var sesipeminjaman []models.SesiPeminjaman
-
-	if err := models.DB.Where("sesi = ? AND id_halte = ?", 3, 2).Find(&sesipeminjaman).Error; err != nil {
-		c.AbortWithStatus(http.StatusNotFound)
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": sesipeminjaman})
 }
 
 func GetSesi1(c *gin.Context){
