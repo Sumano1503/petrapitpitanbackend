@@ -1,7 +1,6 @@
 package sesipeminjamancontroller
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/Sumano1503/petrapitpitanbackend/models"
@@ -23,8 +22,8 @@ func GetSesiHalte(c *gin.Context){
 	// var sesiPeminjaman []models.SesiPeminjaman
 
 	var input struct{
-		idHalte json.Number
-		idSesi json.Number	
+		Id_Halte int64 `gorm:"size:100;not null;" json:"id_halte"`
+		Sesi int64 `gorm:"size:100;not null;" json:"sesi"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -32,8 +31,8 @@ func GetSesiHalte(c *gin.Context){
 		return 
 	}
 
-	idHalte:= input.idHalte
-	idSesi:=input.idSesi
+	idHalte:= input.Id_Halte
+	idSesi:=input.Sesi
 
 	c.JSON(http.StatusOK, gin.H{"idHalte": idHalte, "idsesi": idSesi})
 }
