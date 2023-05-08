@@ -35,7 +35,7 @@ func GetSesiHalte(c *gin.Context){
 	idSesi:=input.Sesi
 
 	if result:=models.DB.Where("sesi = ? AND id_halte = ?", idHalte, idSesi).Find(&sesiPeminjaman).Error;result!=nil{
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": result.Error()})
 		// c.AbortWithStatus(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
