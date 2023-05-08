@@ -20,7 +20,7 @@ func Show(c *gin.Context) {
 
 	id := c.Param("id")
 
-	if err := models.DB.Where("id_user", id).Find(&pelanggaran).Error; err != nil {
+	if err := models.DB.Where("id_user = ?", id).Find(&pelanggaran).Error; err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
 		return
 	}
