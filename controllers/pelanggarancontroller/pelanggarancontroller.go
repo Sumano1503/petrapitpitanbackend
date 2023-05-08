@@ -34,7 +34,7 @@ func GetJumlahPelanggaranById(c *gin.Context) {
 
 	id := c.Param("id")
 
-	if err := models.DB.Where("id_user = ? AND kode_pelanggaran = ?", id, 1).Count(&countKode1).Error; err != nil {
+	if err := models.DB.Table("pelanggarans").Where("id_user = ? AND kode_pelanggaran = ?", id, 1).Count(&countKode1).Error; err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
 		return
 	}
