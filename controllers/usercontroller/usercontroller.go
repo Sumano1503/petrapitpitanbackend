@@ -38,6 +38,23 @@ func CheckUserSignIn(c *gin.Context){
 	}
 }
 
+func CheckUserAvail(c *gin.Context){
+	var users models.User
+	var userData models.User
+	
+	if err := c.ShouldBindJSON(&users); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return 
+	}
+
+	result := models.DB.Where("email = ? ", users.Email).First(&userData)
+	if result.Error != nil{
+		c.JSON(http.StatusOK, gin.H{"pesan":"true"})
+	}else{
+		c.JSON(http.StatusOK, gin.H{"pesan": "false"})
+	}
+}
+
 func Index(c *gin.Context) {
 	var users []models.User
 

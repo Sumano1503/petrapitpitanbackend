@@ -7,6 +7,7 @@ type User struct {
 	Role string `gorm:"size:100;not null;" json:"role"`
 	Status string `gorm:"size:100;not null;" json:"status"`
 	Image string `gorm:"size:255;not null;" json:"image"`
+	NoTelp string `gorm:"size:255;not null;" json:"no_telp"`
 }
 
 type DetailPeminjaman struct{
