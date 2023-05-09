@@ -139,6 +139,25 @@ func Show(c *gin.Context) {
 	
 }
 
+func ShowById(c *gin.Context) {
+	var users models.User
+
+	id:= c.Param("id")
+
+	if err := models.DB.Where("id = ?", id).Find(&users).Error; err != nil {
+		switch err {
+		case gorm.ErrRecordNotFound:
+			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
+			return 
+		default:
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{"user": users})
+	
+}
+
 
 
 func Update(c *gin.Context) {

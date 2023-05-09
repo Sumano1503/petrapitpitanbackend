@@ -92,6 +92,7 @@ func main(){
 
 	auth.GET("/user", usercontroller.Index)
 	auth.GET("/getUserByEmail/:email", usercontroller.Show)
+	auth.GET("/getUserById/:id", usercontroller.ShowById)
 	auth.GET("/cekuser/:email", usercontroller.CekAdmin)
 	auth.GET("/getAdmin", usercontroller.GetAdmin)
 	auth.POST("/user", usercontroller.Create)
