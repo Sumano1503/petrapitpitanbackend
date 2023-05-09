@@ -73,3 +73,8 @@ type SesiPeminjaman struct{
 	Status string `gorm:"size:100;not null;" json:"status"`
 	Id_Halte int64 `gorm:"size:100;not null;" json:"id_halte"`
 }
+
+type Polygon struct{
+	Id int64 `gorm:"primary_key;auto_increment; unique" json:"id"`
+	Lokasi string `gorm:"size:100;not null;" json:"lokasi"`
+}
