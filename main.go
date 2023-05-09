@@ -12,6 +12,7 @@ import (
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/haltecontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/notificationcontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/pelanggarancontroller"
+	"github.com/Sumano1503/petrapitpitanbackend/controllers/polygoncontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/sepedacontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/sesipeminjamancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/usercontroller"
@@ -159,7 +160,8 @@ func main(){
 	auth.POST("/PushNotificationUser", notificationcontroller.PushNotificationUser)
 	auth.POST("/PushNotificationAdmin", notificationcontroller.PushNotificationAdmin)
 
-	
+	auth.GET("/polygon", polygoncontroller.Index)
+	auth.POST("/polygon", polygoncontroller.Create)
 
 	r.Run(":8084")
 }
