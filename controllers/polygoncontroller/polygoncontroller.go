@@ -21,7 +21,7 @@ func Create(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
 	}
-	if result:= models.DB.Table("polygons").Where("id = ?",polygon.Id).Error;result!=nil{
+	if models.DB.Model(&polygon).Where("id = ?", polygon.Id).RowsAffected == 0{
 		models.DB.Create(&polygon)
 	}else{
 		if models.DB.Model(&polygon).Where("id = ?", polygon.Id).Updates(&polygon).RowsAffected == 0 {
