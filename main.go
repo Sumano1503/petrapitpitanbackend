@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpelanggarancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpeminjamancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailsepedahaltecontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/haltecontroller"
@@ -137,12 +136,6 @@ func main(){
 	auth.GET("/historyUser/:email", detailpeminjamancontroller.HistoryUser)
 	auth.GET("/detailHistoryUser/:id", detailpeminjamancontroller.DetailHistoryUser)
 	auth.GET("/cekReservasi/:id", detailpeminjamancontroller.CekReservasi)
-
-	auth.GET("/detailpelanggaran", detailpelanggarancontroller.Index)
-	auth.GET("/detailpelanggaran/:id", detailpelanggarancontroller.Show)
-	auth.POST("/detailpelanggaran", detailpelanggarancontroller.Create)
-	auth.PUT("/detailpelanggaran/:id", detailpelanggarancontroller.Update)
-	auth.DELETE("/detailpelanggaran", detailpelanggarancontroller.Delete)
 
 	auth.GET("/sepeda", sepedacontroller.Index)
 	auth.GET("/sepeda/:id", sepedacontroller.Show)

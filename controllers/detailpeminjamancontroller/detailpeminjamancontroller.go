@@ -70,25 +70,6 @@ func Create(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"pesan": "berhasil di tambahkan", "detailPeminjaman": detailPeminjaman, "detailSepedaHalte": detailSepedaHalte})
 }
 
-func CekDetailPeminjaman(c *gin.Context) {
-	var detailPelanggaran models.DetailPelanggaran
-
-	id := c.Param("id")
-
-	if err := models.DB.First(&detailPelanggaran, id).Error; err != nil {
-		switch err {
-		case gorm.ErrRecordNotFound:
-			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
-			return 
-		default:
-			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		}
-	}
-
-	c.JSON(http.StatusOK, gin.H{"detailPelanggaran": detailPelanggaran})
-	
-}
-
 func Update(c *gin.Context) {
 	var detailPeminjaman models.DetailPeminjaman
 	id := c.Param("id")

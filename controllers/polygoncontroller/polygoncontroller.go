@@ -23,5 +23,5 @@ func Create(c *gin.Context) {
 	}
 
 	models.DB.Create(&polygon)
-	c.JSON(http.StatusOK, gin.H{"polygon": polygon})
+	c.JSON(http.StatusOK, gin.H{"pelanggaran": polygon})
 }

@@ -13,7 +13,7 @@ func ConnectDataBase() {
 		panic(err)
 	}
 
-	database.AutoMigrate(&User{} , &Sepeda{}, &Halte{}, &DetailSepedaHalte{}, &Pelanggaran{}, &DetailPelanggaran{}, &DetailPeminjaman{}, &SesiPeminjaman{})
+	database.AutoMigrate(&User{} , &Sepeda{}, &Halte{}, &DetailSepedaHalte{}, &Pelanggaran{}, &DetailPelanggaran{}, &DetailPeminjaman{}, &SesiPeminjaman{}, &Polygon{})
 
 	DB = database
 }
