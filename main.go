@@ -126,7 +126,7 @@ func main(){
 	auth.GET("/cekSepedaAvail/:idHalte", detailsepedahaltecontroller.CekSepedaTerpakai)
 
 
-	auth.GET("/detailpeminjaman", detailpeminjamancontroller.GetHistoryByIdSepeda)
+	auth.GET("/getHistoryByIdSepeda/:id", detailpeminjamancontroller.GetHistoryByIdSepeda)
 	auth.GET("/detailpeminjaman/:id", detailpeminjamancontroller.Show)
 	auth.GET("/detailpeminjamanbyidSepedaStatOnProgress/:id", detailpeminjamancontroller.ShowIdSep)
 	auth.POST("/detailpeminjaman", detailpeminjamancontroller.Create)
