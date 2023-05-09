@@ -15,21 +15,20 @@ func Index(c *gin.Context){
 }
 
 func Create(c *gin.Context) {
+	var polygoninput models.Polygon
 	var polygon models.Polygon
+	
 
-	if err := c.ShouldBindJSON(&polygon); err != nil {
+	if err := c.ShouldBindJSON(&polygoninput); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
 	}
-	if models.DB.Model(&polygon).Where("id = ?", polygon.Id).RowsAffected == 0{
-		models.DB.Create(&polygon)
-	}else{
-		if models.DB.Model(&polygon).Where("id = ?", polygon.Id).Updates(&polygon).RowsAffected == 0 {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "TIDAK DAPAT MENGUPDATE"})
-			return 
-		}
+	
+	if models.DB.Model(&polygoninput).Where("id = ?", polygoninput.Id).Updates(&polygon).RowsAffected == 0 {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "TIDAK DAPAT MENGUPDATE"})
+		return 
 	}
 	
-	
 	c.JSON(http.StatusOK, gin.H{"polygon": polygon})
+	
 }
