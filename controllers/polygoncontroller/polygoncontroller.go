@@ -16,7 +16,7 @@ func Index(c *gin.Context){
 
 func Create(c *gin.Context) {
 	var polygoninput models.Polygon
-	var polygon models.Polygon
+	// var polygon models.Polygon
 	
 
 	if err := c.ShouldBindJSON(&polygoninput); err != nil {
@@ -24,11 +24,11 @@ func Create(c *gin.Context) {
 		return 
 	}
 	
-	if models.DB.Model(&polygoninput).Where("id = ?", polygoninput.Id).Updates(&polygon).RowsAffected == 0 {
+	if models.DB.Model(&polygoninput).Where("id = ?", polygoninput.Id).Updates(&polygoninput).RowsAffected == 0 {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "TIDAK DAPAT MENGUPDATE"})
 		return 
 	}
 	
-	c.JSON(http.StatusOK, gin.H{"polygon": polygon})
+	c.JSON(http.StatusOK, gin.H{"polygon": polygoninput})
 	
 }
