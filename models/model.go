@@ -76,5 +76,6 @@ type SesiPeminjaman struct{
 
 type Polygon struct{
 	Id int64 `gorm:"primary_key;auto_increment; unique" json:"id"`
-	Lokasi string `gorm:"size:100;not null;" json:"lokasi"`
+	Latitude string `gorm:"size:100;not null;" json:"latitude"`
+	Longitude string `gorm:"size:100;not null;" json:"longitude"`
 }
