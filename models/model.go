@@ -39,6 +39,7 @@ type Pelanggaran struct{
 	Id_detail_peminjaman int64 `gorm:"size:100;not null;" json:"id_detail_peminjaman"`
 	Kode_pelanggaran int64 `gorm:"size:255;not null;" json:"kode_pelanggaran"`
 	Id_User int64 `gorm:"size:100;not null;" json:"id_user"`
+	Id_Sepeda int64 `gorm:"size:100;not null;" json:"id_sepeda"`
 }
 
 type Halte struct{
