@@ -43,7 +43,7 @@ func ShowIdSep(c *gin.Context) {
 	var detailPeminjaman models.DetailPeminjaman
 	id := c.Param("id")
 	
-	if err := models.DB.Where("id_sepeda = ? AND status = ?", id, "on progress").First(&detailPeminjaman).Error; err != nil {
+	if err := models.DB.Where("id_sepeda = ? AND status = on progress", id).First(&detailPeminjaman).Error; err != nil {
 		switch err {
 		case gorm.ErrRecordNotFound:
 			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
