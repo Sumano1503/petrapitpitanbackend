@@ -33,6 +33,24 @@ func Show(c *gin.Context){
 	c.JSON(http.StatusOK, gin.H{"polygon": polygon})
 }
 
+func Update(c *gin.Context) {
+	var polygon models.Polygon
+
+	id := c.Param("id")
+
+	if err := c.ShouldBindJSON(&polygon); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return 
+	}
+
+	if models.DB.Model(&polygon).Where("id = ?", id).Updates(&polygon).RowsAffected == 0 {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "TIDAK DAPAT MENGUPDATE"})
+		return 
+	}
+
+	c.JSON(http.StatusOK, gin.H{"pesan": "berhasil di perbahaarui"})
+}
+
 func Create(c *gin.Context) {
 	var polygoninput models.Polygon
 

@@ -155,6 +155,7 @@ func main(){
 
 	auth.GET("/polygon", polygoncontroller.Index)
 	auth.GET("/polygon/:id", polygoncontroller.Show)
+	auth.PUT("/polygon/:id", polygoncontroller.Update)
 	auth.POST("/polygon", polygoncontroller.Create)
 
 	r.Run(":8084")
