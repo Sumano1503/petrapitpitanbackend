@@ -33,6 +33,24 @@ func Show(c *gin.Context){
 	c.JSON(http.StatusOK, gin.H{"polygon": polygon})
 }
 
+func Delete(c *gin.Context){
+	var polygon models.Polygon
+
+	id := c.Param("id")
+
+	if err := models.DB.Where("id = ?", id ).First(&polygon).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Sepeda tidak ditemukan"})
+        return
+	}
+
+	if err:= models.DB.Delete(&polygon).Error; err!=nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "tidak dapat menghapus"})
+		return 
+	}
+
+	c.JSON(http.StatusOK, gin.H{"pesan": "berhasil di hapus"})
+}
+
 func Update(c *gin.Context) {
 	var polygon models.Polygon
 
