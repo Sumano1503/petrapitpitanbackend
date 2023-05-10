@@ -154,6 +154,7 @@ func main(){
 	auth.POST("/PushNotificationAdmin", notificationcontroller.PushNotificationAdmin)
 
 	auth.GET("/polygon", polygoncontroller.Index)
+	auth.GET("/polygon/:id", polygoncontroller.Show)
 	auth.POST("/polygon", polygoncontroller.Create)
 
 	r.Run(":8084")
