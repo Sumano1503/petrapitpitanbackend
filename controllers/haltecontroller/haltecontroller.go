@@ -1,7 +1,6 @@
 package haltecontroller
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/Sumano1503/petrapitpitanbackend/models"
@@ -68,17 +67,14 @@ func Update(c *gin.Context) {
 func Delete(c *gin.Context) {
 	var halte models.Halte
 
-	var input struct {
-		Id json.Number
+	id := c.Param("id")
+
+	if err := models.DB.Where("id = ?", id ).First(&halte).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Sepeda tidak ditemukan"})
+        return
 	}
 
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return 
-	}
-
-	id, _ := input.Id.Int64()
-	if models.DB.Delete(&halte, id).RowsAffected == 0 {
+	if err:= models.DB.Delete(&halte).Error; err!=nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "tidak dapat menghapus"})
 		return 
 	}
