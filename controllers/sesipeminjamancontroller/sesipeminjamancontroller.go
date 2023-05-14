@@ -76,3 +76,21 @@ func Create(c *gin.Context){
 	models.DB.Create(&sesiPeminjaman)
 	c.JSON(http.StatusOK, gin.H{"data": sesiPeminjaman})
 }
+
+func Delete (c *gin.Context){
+	var sesiPeminjaman models.SesiPeminjaman
+
+	id := c.Param("id")
+
+	if err := models.DB.Where("id = ?", id ).First(&sesiPeminjaman).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Sepeda tidak ditemukan"})
+        return
+	}
+
+	if err:= models.DB.Delete(&sesiPeminjaman).Error; err!=nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "tidak dapat menghapus"})
+		return 
+	}
+
+	c.JSON(http.StatusOK, gin.H{"pesan": "berhasil di hapus"})
+} 
