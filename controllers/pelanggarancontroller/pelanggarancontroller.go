@@ -11,7 +11,7 @@ import (
 func Index(c *gin.Context) {
 	var pelanggaran []models.Pelanggaran
 
-	models.DB.Find(&pelanggaran)
+	models.DB.Order("id_pelanggaran desc").Find(&pelanggaran)
 	c.JSON(http.StatusOK, gin.H{"pelanggaran": pelanggaran})
 }
 
