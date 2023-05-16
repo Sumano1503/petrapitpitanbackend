@@ -149,7 +149,7 @@ func HistoryUser(c *gin.Context){
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
 	}
 	id := user.Id
-	if err := models.DB.Where("id_user = ? AND status = 'done' OR  status = 'Di Batalkan'", id).Find(&detailPeminjaman).Error; err != nil {
+	if err := models.DB.Where("id_user = ? AND (status = 'done' AND  status = 'Di Batalkan')", id).Find(&detailPeminjaman).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
 	}
 
