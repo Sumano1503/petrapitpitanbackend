@@ -145,17 +145,15 @@ func HistoryUser(c *gin.Context){
 	var user models.User
 
 	email := c.Param("email")
-	if err := models.DB.Where("email = ?", email).First(&user).Error; err != nil {
+	if err := models.DB.Where("email = ?", email).Find(&user).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
 	}
-
 	id := user.Id
-
 	if err := models.DB.Where("id_user = ? AND status = 'done' OR  status = 'Di Batalkan'", id).Find(&detailPeminjaman).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": detailPeminjaman})
+	c.JSON(http.StatusOK, gin.H{"data": detailPeminjaman, "id": user.Id, "email": email, "user": user })
 }
 
 func DetailHistoryUser(c *gin.Context){
