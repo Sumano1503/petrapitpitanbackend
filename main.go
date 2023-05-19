@@ -148,7 +148,7 @@ func main(){
 	auth.GET("/sesi2", sesipeminjamancontroller.GetSesi2)
 	auth.GET("/sesi3", sesipeminjamancontroller.GetSesi3)
 	auth.POST("/sesipeminjaman", sesipeminjamancontroller.Create)
-	auth.POST("/sesihalte", sesipeminjamancontroller.GetSesiHalte)
+	auth.GET("/sesi/:id", sesipeminjamancontroller.GetSesi)
 	auth.DELETE("/sesi/:id", sesipeminjamancontroller.Delete)
 
 	auth.POST("/PushNotificationUser", notificationcontroller.PushNotificationUser)

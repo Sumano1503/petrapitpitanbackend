@@ -7,23 +7,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetSesiHalte(c *gin.Context){
+func GetSesi(c *gin.Context){
 	var sesiPeminjaman []models.SesiPeminjaman
 
-	var input struct{
-		Id_Halte int64 `gorm:"size:100;not null;" json:"id_halte"`
-		Sesi int64 `gorm:"size:100;not null;" json:"sesi"`
-	}
+	idSesi := c.Param("id");
 
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return 
-	}
-
-	idHalte:= input.Id_Halte
-	idSesi:=input.Sesi
-
-	if result:=models.DB.Where("sesi = ? AND id_halte = ?", idSesi, idHalte).Find(&sesiPeminjaman).Error;result!=nil{
+	if result:=models.DB.Where("sesi = ?", idSesi).Find(&sesiPeminjaman).Error;result!=nil{
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": result.Error()})
 		// c.AbortWithStatus(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
