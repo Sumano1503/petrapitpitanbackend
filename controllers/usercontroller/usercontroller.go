@@ -85,11 +85,10 @@ func CekAdmin(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"role": "Admin"})
 	}else if(users.Role == "SuperAdmin"){
 		c.JSON(http.StatusOK, gin.H{"role" : "SuperAdmin"})
-	}else if(users.Role == "user"){
+	}else {
 		c.JSON(http.StatusOK, gin.H{"role":"User"})
-	} else{
-		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
-	}
+	} 
+		
 	
 }
 

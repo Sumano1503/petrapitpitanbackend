@@ -72,7 +72,7 @@ func Delete (c *gin.Context){
 	id := c.Param("id")
 
 	if err := models.DB.Where("id = ?", id ).First(&sesiPeminjaman).Error; err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Sepeda tidak ditemukan"})
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "sesi tidak ditemukan"})
         return
 	}
 
