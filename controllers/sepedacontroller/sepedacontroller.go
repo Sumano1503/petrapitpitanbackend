@@ -44,6 +44,8 @@ func Create(c *gin.Context) {
 		return 
 	}
 
+	sepeda.Tanggal = time.Now()
+	sepeda.Status = 1
 	models.DB.Create(&sepeda)
 	c.JSON(http.StatusOK, gin.H{"data": sepeda})
 }
@@ -58,8 +60,6 @@ func Update(c *gin.Context) {
 		return 
 	}
 
-	sepeda.Tanggal = time.Now()
-	
 	if models.DB.Model(&sepeda).Where("id = ?", id).Updates(&sepeda).RowsAffected == 0 {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "TIDAK DAPAT MENGUPDATE"})
 		return 
