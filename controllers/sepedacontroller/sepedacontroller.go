@@ -2,6 +2,7 @@ package sepedacontroller
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/Sumano1503/petrapitpitanbackend/models"
 	"github.com/gin-gonic/gin"
@@ -57,6 +58,8 @@ func Update(c *gin.Context) {
 		return 
 	}
 
+	sepeda.Tanggal = time.Now()
+	
 	if models.DB.Model(&sepeda).Where("id = ?", id).Updates(&sepeda).RowsAffected == 0 {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "TIDAK DAPAT MENGUPDATE"})
 		return 
