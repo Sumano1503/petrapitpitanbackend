@@ -69,6 +69,7 @@ type Sepeda struct{
 	Gambar string `gorm:"size:500;not null;" json:"gambar"`
 	Status int64 `gorm:"not null;" json:"status"`
 	Tanggal string `gorm:"not null;" json:"tanggal"`
+	Alasan string `gorm:"not null;" json:"alasan"`
 }
 
 type SesiPeminjaman struct{
