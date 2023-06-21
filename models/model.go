@@ -68,7 +68,7 @@ type Sepeda struct{
 	Key string `gorm:"size:100;not null;" json:"key"`
 	Gambar string `gorm:"size:500;not null;" json:"gambar"`
 	Status int64 `gorm:"not null;" json:"status"`
-	Tanggal time.Time `gorm:"not null;" json:"tanggal"`
+	Tanggal string `gorm:"not null;" json:"tanggal"`
 }
 
 type SesiPeminjaman struct{

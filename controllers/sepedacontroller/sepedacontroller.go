@@ -43,8 +43,8 @@ func Create(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
 	}
-
-	sepeda.Tanggal = time.Now()
+	waktu:= time.Now()
+	sepeda.Tanggal = waktu.Format("02/01/2006")
 	sepeda.Status = 1
 	models.DB.Create(&sepeda)
 	c.JSON(http.StatusOK, gin.H{"data": sepeda})
