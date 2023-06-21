@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type User struct {
 	Id int64 `gorm:"primary_key;auto_increment; unique" json:"id"`
 	Nama string `gorm:"size:255;not null;" json:"nama"`
@@ -40,11 +42,13 @@ type Pelanggaran struct{
 	Kode_pelanggaran int64 `gorm:"size:255;not null;" json:"kode_pelanggaran"`
 	Id_User int64 `gorm:"size:100;not null;" json:"id_user"`
 	Id_Sepeda int64 `gorm:"size:100;not null;" json:"id_sepeda"`
+	Tanggal time.Time `gorm:"not null;" json:"tanggal"`
 }
 
 type Halte struct{
 	Id_halte int64 `gorm:"primary_key;auto_increment; unique" json:"id"`
 	Nama_halte string `gorm:"size:255;not null;" json:"nama_halte"`
+	Gambar string `gorm:"size:255;not null;" json:"gambar"`
 }
 
 type DetailSepedaHalte struct{
@@ -63,6 +67,8 @@ type Sepeda struct{
 	Tipe string `gorm:"size:100;not null;" json:"tipe"`
 	Key string `gorm:"size:100;not null;" json:"key"`
 	Gambar string `gorm:"size:500;not null;" json:"gambar"`
+	Status int64 `gorm:"not null;" json:"status"`
+	Tanggal time.Time `gorm:"not null;" json:"tanggal"`
 }
 
 type SesiPeminjaman struct{
