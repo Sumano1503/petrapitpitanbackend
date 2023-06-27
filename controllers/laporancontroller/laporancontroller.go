@@ -23,7 +23,7 @@ func GetLaporan(c *gin.Context){
 		return 
 	}
 
-	query := fmt.Sprintf("SELECT * FROM detail_peminjaman WHERE STR_TO_DATE(tanggal, '%%d/%%m/%%Y') BETWEEN STR_TO_DATE('%s', '%%d/%%m/%%Y') AND STR_TO_DATE('%s', '%%d/%%m/%%Y')", date.Start, date.End)
+	query := fmt.Sprintf("SELECT * FROM detail_peminjamen WHERE STR_TO_DATE(tanggal, '%%d/%%m/%%Y') BETWEEN STR_TO_DATE('%s', '%%d/%%m/%%Y') AND STR_TO_DATE('%s', '%%d/%%m/%%Y')", date.Start, date.End)
 
 	// Menjalankan query dan mendapatkan hasil
 	if err := models.DB.Raw(query).Scan(&detail_peminjamen).Error; err != nil {
