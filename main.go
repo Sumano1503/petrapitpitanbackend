@@ -9,6 +9,7 @@ import (
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailpeminjamancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/detailsepedahaltecontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/haltecontroller"
+	"github.com/Sumano1503/petrapitpitanbackend/controllers/laporancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/notificationcontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/pelanggarancontroller"
 	"github.com/Sumano1503/petrapitpitanbackend/controllers/polygoncontroller"
@@ -159,6 +160,8 @@ func main(){
 	auth.PUT("/polygon/:id", polygoncontroller.Update)
 	auth.POST("/polygon", polygoncontroller.Create)
 	auth.DELETE("/polygon/:id", polygoncontroller.Delete)
+
+	auth.POST("/Laporan", laporancontroller.GetLaporan) 
 
 	r.Run(":8084")
 }
