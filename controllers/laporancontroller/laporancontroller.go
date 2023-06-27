@@ -18,8 +18,6 @@ func GetLaporan(c *gin.Context){
 		HalteTerbanyak string
 		TotalSepeda int
 		SepedaRusak int
-		detailpeminjaman []models.DetailPeminjaman
-
 	}
 
 	type tanggal struct{
@@ -28,6 +26,7 @@ func GetLaporan(c *gin.Context){
 	}
 
 	var pelanggaran []models.Pelanggaran
+	var detailpeminjaman []models.DetailPeminjaman
 	var sepeda []models.Sepeda
 	var halte string
 	var date tanggal
@@ -40,7 +39,7 @@ func GetLaporan(c *gin.Context){
 
 	// getdetailpeminjaman
 	queryDetailPeminjaman := fmt.Sprintf("SELECT * FROM detail_peminjamen WHERE STR_TO_DATE(tanggal, '%%d/%%m/%%Y') BETWEEN STR_TO_DATE('%s', '%%d/%%m/%%Y') AND STR_TO_DATE('%s', '%%d/%%m/%%Y')", date.Start, date.End)
-	if err := models.DB.Raw(queryDetailPeminjaman).Scan(&listLaporan.detailpeminjaman).Error; err != nil {
+	if err := models.DB.Raw(queryDetailPeminjaman).Scan(&detailpeminjaman).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
 		return
 	}
@@ -97,7 +96,7 @@ if err := models.DB.Raw(queryHalteTerbanyak).Scan(&halte).Error; err != nil {
 
 
 
-	listLaporan.BanyakPeminjaman = len(listLaporan.detailpeminjaman)
+	listLaporan.BanyakPeminjaman = len(detailpeminjaman)
 	listLaporan.BanyakPelanggaran = len(pelanggaran)
 	listLaporan.SepedaBaru = coB
 	listLaporan.SepedaRusak = coR
@@ -105,5 +104,5 @@ if err := models.DB.Raw(queryHalteTerbanyak).Scan(&halte).Error; err != nil {
 	listLaporan.HalteTerbanyak = halte
 	
 		
-	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": listLaporan.detailpeminjaman, "laporan": listLaporan})
+	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": detailpeminjaman, "laporan": listLaporan})
 }
