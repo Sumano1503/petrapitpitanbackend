@@ -75,5 +75,5 @@ func GetLaporan(c *gin.Context){
 	listLaporan.TotalSepeda = len(sepeda)
 	
 		
-	c.JSON(http.StatusOK, gin.H{"data": listLaporan})
+	c.JSON(http.StatusOK, gin.H{"data": listLaporan.detailpeminjaman})
 }
