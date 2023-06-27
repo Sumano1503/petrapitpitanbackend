@@ -25,7 +25,6 @@ func GetLaporan(c *gin.Context){
 		End string
 	}
 
-	var detail_peminjamen []models.DetailPeminjaman
 	var pelanggaran []models.Pelanggaran
 	var sepeda []models.Sepeda
 	var date tanggal
@@ -38,7 +37,7 @@ func GetLaporan(c *gin.Context){
 
 	// getdetailpeminjaman
 	queryDetailPeminjaman := fmt.Sprintf("SELECT * FROM detail_peminjamen WHERE STR_TO_DATE(tanggal, '%%d/%%m/%%Y') BETWEEN STR_TO_DATE('%s', '%%d/%%m/%%Y') AND STR_TO_DATE('%s', '%%d/%%m/%%Y')", date.Start, date.End)
-	if err := models.DB.Raw(queryDetailPeminjaman).Scan(&detail_peminjamen).Error; err != nil {
+	if err := models.DB.Raw(queryDetailPeminjaman).Scan(&listLaporan.detailpeminjaman).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
 		return
 	}
@@ -69,13 +68,12 @@ func GetLaporan(c *gin.Context){
 		}
 	}
 
-	listLaporan.BanyakPeminjaman = len(detail_peminjamen)
+	listLaporan.BanyakPeminjaman = len(listLaporan.detailpeminjaman)
 	listLaporan.BanyakPelanggaran = len(pelanggaran)
 	listLaporan.SepedaBaru = coB
 	listLaporan.SepedaRusak = coR
 	listLaporan.TotalSepeda = len(sepeda)
-	listLaporan.detailpeminjaman = make([]models.DetailPeminjaman, len(detail_peminjamen))
-	copy(listLaporan.detailpeminjaman, detail_peminjamen)
+	
 		
 	c.JSON(http.StatusOK, gin.H{"data": listLaporan})
 }
