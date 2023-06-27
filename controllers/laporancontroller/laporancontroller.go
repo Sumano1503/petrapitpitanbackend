@@ -74,12 +74,8 @@ func GetLaporan(c *gin.Context){
 	listLaporan.SepedaBaru = coB
 	listLaporan.SepedaRusak = coR
 	listLaporan.TotalSepeda = len(sepeda)
-	listLaporan.detailpeminjaman = detail_peminjamen
-
-
-	
-
-	
-	
+	listLaporan.detailpeminjaman = make([]models.DetailPeminjaman, len(detail_peminjamen))
+	copy(listLaporan.detailpeminjaman, detail_peminjamen)
+		
 	c.JSON(http.StatusOK, gin.H{"data": listLaporan})
 }
