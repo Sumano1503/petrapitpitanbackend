@@ -15,9 +15,11 @@ func GetLaporan(c *gin.Context){
 		BanyakPelanggaran int
 		SepedaBaru int
 		HalteBaru int
+		HalteTerbanyak string
 		TotalSepeda int
 		SepedaRusak int
 		detailpeminjaman []models.DetailPeminjaman
+
 	}
 
 	type tanggal struct{
@@ -27,6 +29,7 @@ func GetLaporan(c *gin.Context){
 
 	var pelanggaran []models.Pelanggaran
 	var sepeda []models.Sepeda
+	var halte string
 	var date tanggal
 	var listLaporan laporan
 
@@ -48,8 +51,31 @@ func GetLaporan(c *gin.Context){
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
 		return
 	}
+
 	// getsepeda
 	models.DB.Find(&sepeda)
+
+	// gethalte paling sering dikunjungi
+	queryHalteTerbanyak := `
+	SELECT h.nama_halte 
+	FROM detail_peminjamen dp
+	JOIN haltes h ON dp.id_halte_tujuan = h.id_halte
+	GROUP BY dp.id_halte_tujuan, h.nama_halte
+	HAVING COUNT(*) = (
+		SELECT MAX(Jumlah)
+		FROM (
+			SELECT id_halte_tujuan, COUNT(*) AS Jumlah
+			FROM detail_peminjamen
+			GROUP BY id_halte_tujuan
+		) AS Counts
+	);
+`
+
+if err := models.DB.Raw(queryHalteTerbanyak).Scan(&halte).Error; err != nil {
+	c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
+	return
+}
+
 
 	layout := "02/01/2006"
 	start, _ := time.Parse(layout, date.Start)
@@ -68,11 +94,15 @@ func GetLaporan(c *gin.Context){
 		}
 	}
 
+
+
+
 	listLaporan.BanyakPeminjaman = len(listLaporan.detailpeminjaman)
 	listLaporan.BanyakPelanggaran = len(pelanggaran)
 	listLaporan.SepedaBaru = coB
 	listLaporan.SepedaRusak = coR
 	listLaporan.TotalSepeda = len(sepeda)
+	listLaporan.HalteTerbanyak = halte
 	
 		
 	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": listLaporan.detailpeminjaman, "laporan": listLaporan})
