@@ -46,7 +46,7 @@ type Pelanggaran struct{
 type Halte struct{
 	Id_halte int64 `gorm:"primary_key;auto_increment; unique" json:"id"`
 	Nama_halte string `gorm:"size:255;not null;" json:"nama_halte"`
-	Gambar string `gorm:"size:255;not null;" json:"gambar"`
+	Gambar string `gorm:"size:100;not null;" json:"gambar"`
 }
 
 type DetailSepedaHalte struct{
