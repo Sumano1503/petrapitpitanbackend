@@ -27,6 +27,15 @@ func GetLaporan(c *gin.Context){
 		End string
 	}
 
+	type listPelanggar struct{
+		nama string
+		total_pelanggaran int
+		kode_pelanggaran int
+		id_sepeda int
+		tanggal string
+		id_detail_peminjaman int
+	}
+
 	var pelanggaran []models.Pelanggaran
 	var detailpeminjaman []models.DetailPeminjaman
 	var sepeda []models.Sepeda
@@ -34,6 +43,7 @@ func GetLaporan(c *gin.Context){
 	var date tanggal
 	var listLaporan laporan
 	var haltes []models.Halte
+	var pelanggar []listPelanggar
 
 	if err := c.ShouldBindJSON(&date); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -100,15 +110,18 @@ if err := models.DB.Raw(queryHalteTerbanyak).Scan(&halte).Error; err != nil {
 	models.DB.Find(&haltes)
 
 	querySepedaTerbanyak := `
-	SELECT s.nama FROM detail_peminjamen dp JOIN sepedas s ON dp.id_sepeda = s.id GROUP BY dp.id_sepeda, s.nama HAVING COUNT(*) = ( SELECT MAX(Jumlah) FROM ( SELECT id_sepeda, COUNT(*) AS Jumlah FROM detail_peminjamen GROUP BY id_sepeda ) AS Counts );
-`
+	SELECT s.nama FROM detail_peminjamen dp JOIN sepedas s ON dp.id_sepeda = s.id GROUP BY dp.id_sepeda, s.nama HAVING COUNT(*) = ( SELECT MAX(Jumlah) FROM ( SELECT id_sepeda, COUNT(*) AS Jumlah FROM detail_peminjamen GROUP BY id_sepeda ) AS Counts );`
 
-if err := models.DB.Raw(querySepedaTerbanyak).Scan(&listLaporan.SepedaTerbanyak).Error; err != nil {
-	c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
-	return
-}
-	
-
+	if err := models.DB.Raw(querySepedaTerbanyak).Scan(&listLaporan.SepedaTerbanyak).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
+		return
+	}
+		
+	queryListPelanggar := fmt.Sprintf(`SELECT u.nama, COUNT(p.id_user) AS total_pelanggaran, p.kode_pelanggaran, p.id_sepeda, p.tanggal, p.id_detail_peminjaman FROM users u JOIN pelanggarans p ON u.id = p.id_user WHERE STR_TO_DATE(p.tanggal, '%%d/%%m/%%Y') BETWEEN STR_TO_DATE('%s', '%%d/%%m/%%Y') AND STR_TO_DATE('%s', '%%d/%%m/%%Y') GROUP BY u.nama, p.kode_pelanggaran, p.id_sepeda, p.tanggal, p.id_detail_peminjaman;`,date.Start, date.End) 
+	if err := models.DB.Raw(queryListPelanggar).Scan(&pelanggar).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
+		return
+	}
 
 	listLaporan.BanyakPeminjaman = len(detailpeminjaman)
 	listLaporan.BanyakPelanggaran = len(pelanggaran)
@@ -120,5 +133,5 @@ if err := models.DB.Raw(querySepedaTerbanyak).Scan(&listLaporan.SepedaTerbanyak)
 
 	
 		
-	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": detailpeminjaman, "laporan": listLaporan})
+	c.JSON(http.StatusOK, gin.H{"detailPeminjaman": detailpeminjaman, "laporan": listLaporan, "pelanggar": pelanggar})
 }
