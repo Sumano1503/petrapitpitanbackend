@@ -40,7 +40,7 @@ type Pelanggaran struct{
 	Kode_pelanggaran int64 `gorm:"size:255;not null;" json:"kode_pelanggaran"`
 	Id_User int64 `gorm:"size:100;not null;" json:"id_user"`
 	Id_Sepeda int64 `gorm:"size:100;not null;" json:"id_sepeda"`
-	Tanggal string `gorm:"not null;" json:"tanggal"`
+	Tanggal string `gorm:"size:100;not null;" json:"tanggal"`
 }
 
 type Halte struct{
