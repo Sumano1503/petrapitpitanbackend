@@ -28,12 +28,12 @@ func GetLaporan(c *gin.Context){
 	}
 
 	type listPelanggar struct{
-		nama string
-		total_pelanggaran int
-		kode_pelanggaran int
-		id_sepeda int
-		tanggal string
-		id_detail_peminjaman int
+	Nama                 string `gorm:"column:nama"`
+	TotalPelanggaran     int    `gorm:"column:total_pelanggaran"`
+	KodePelanggaran      int    `gorm:"column:kode_pelanggaran"`
+	IDSepeda             int    `gorm:"column:id_sepeda"`
+	Tanggal              string `gorm:"column:tanggal"`
+	IDDetailPeminjaman   int    `gorm:"column:id_detail_peminjaman"`
 	}
 
 	var pelanggaran []models.Pelanggaran
