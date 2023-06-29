@@ -113,7 +113,7 @@ if err := models.DB.Raw(queryHalteTerbanyak).Scan(&halte).Error; err != nil {
 		return
 	}
 		
-	queryListPelanggar := fmt.Sprintf(`SELECT u.nama AS nama_user, COUNT(p.id_user) AS total_pelanggaran FROM users u LEFT JOIN pelanggarans p ON u.id = p.id_user WHERE STR_TO_DATE(p.tanggal, '%%d/%%m/%%Y') BETWEEN STR_TO_DATE('%s', '%%d/%%m/%%Y') AND STR_TO_DATE('%s', '%%d/%%m/%%Y') GROUP BY u.nama;`,date.Start, date.End) 
+	queryListPelanggar := fmt.Sprintf(`SELECT u.nama AS nama, COUNT(p.id_user) AS total_pelanggaran FROM users u LEFT JOIN pelanggarans p ON u.id = p.id_user WHERE STR_TO_DATE(p.tanggal, '%%d/%%m/%%Y') BETWEEN STR_TO_DATE('%s', '%%d/%%m/%%Y') AND STR_TO_DATE('%s', '%%d/%%m/%%Y') GROUP BY u.nama;`,date.Start, date.End) 
 	if err := models.DB.Raw(queryListPelanggar).Scan(&pelanggar).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Record not found!"})
 		return
