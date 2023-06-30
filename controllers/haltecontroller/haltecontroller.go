@@ -89,7 +89,7 @@ func Delete(c *gin.Context) {
 	// 	stat = 2
 	// }
 
-	if models.DB.Model(&halte).Where("id_halte = ?", id).UpdateColumn("status", 1).RowsAffected == 0 {
+	if models.DB.Model(&halte).Where("id_halte = ?", id).UpdateColumn("status", 2).RowsAffected == 0 {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Halte tidak ditemukan"})
 		return
 	}
