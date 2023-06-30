@@ -100,7 +100,7 @@ func Delete(c *gin.Context) {
 	}
 
 	id, _ := input.Id.Int64()
-	if models.DB.Delete(&detailSepedaHalte, id).RowsAffected == 0 {
+	if models.DB.Model(&detailSepedaHalte).Where("id_sepeda = ?", id).Update("status = ?", 0).RowsAffected == 0 {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "tidak dapat menghapus"})
 		return 
 	}
