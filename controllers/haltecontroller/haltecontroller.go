@@ -81,15 +81,15 @@ func Delete(c *gin.Context) {
 		return 
 	}
 
-	kode , _ := input.kode.Int64()
-	stat := 2
-	if(kode == 1){
-		stat = 1
-	}else{
-		stat = 2
-	}
+	// kode , _ := input.kode.Int64()
+	// stat := 2
+	// if(kode == 1){
+	// 	stat = 1
+	// }else{
+	// 	stat = 2
+	// }
 
-	if models.DB.Model(&halte).Where("id_halte = ?", id).UpdateColumn("status", stat).RowsAffected == 0 {
+	if models.DB.Model(&halte).Where("id_halte = ?", id).UpdateColumn("status", 1).RowsAffected == 0 {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Halte tidak ditemukan"})
 		return
 	}
