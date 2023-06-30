@@ -2,6 +2,7 @@ package haltecontroller
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/Sumano1503/petrapitpitanbackend/models"
 	"github.com/gin-gonic/gin"
@@ -41,7 +42,9 @@ func Create(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
 	}
-
+	waktu:= time.Now()
+	halte.Tanggal = waktu.Format("02/01/2006")
+	halte.Status = 1
 	models.DB.Create(&halte)
 	c.JSON(http.StatusOK, gin.H{"halte": halte})
 }
