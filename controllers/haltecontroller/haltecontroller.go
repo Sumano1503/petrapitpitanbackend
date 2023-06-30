@@ -68,11 +68,11 @@ func Update(c *gin.Context) {
 }
 
 func Delete(c *gin.Context) {
-	// var halte models.Halte
+	var halte models.Halte
 
 	id := c.Param("id")
 
-	if err := models.DB.Where("id_halte = ?", id ).Update("status =?", 0).Error; err != nil {
+	if models.DB.Model(&halte).Where("id_halte = ?", id ).Update("status =?", 0).RowsAffected == 0 {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Sepeda tidak ditemukan"})
         return
 	}
