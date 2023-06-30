@@ -116,6 +116,7 @@ func main(){
 	auth.POST("/halte", haltecontroller.Create)
 	auth.PUT("/halte/:id", haltecontroller.Update)
 	auth.PUT("/DelHalte/:id", haltecontroller.Delete)
+	auth.PUT("/ActHalte/:id", haltecontroller.Active)
 
 	auth.GET("/detailsepedahalte", detailsepedahaltecontroller.Index)
 	auth.GET("/detailsepedahalte/:id", detailsepedahaltecontroller.Show)
