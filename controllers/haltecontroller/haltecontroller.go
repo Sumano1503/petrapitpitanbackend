@@ -69,13 +69,13 @@ func Update(c *gin.Context) {
 
 func Delete(c *gin.Context) {
 	var halte models.Halte
-
 	id := c.Param("id")
 
-	if models.DB.Model(&halte).Where("id_halte = ?", id ).Update("status =?", 0).RowsAffected == 0 {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Sepeda tidak ditemukan"})
-        return
+	if models.DB.Model(&halte).Where("id_halte = ?", id).UpdateColumn("status", 0).RowsAffected == 0 {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Halte tidak ditemukan"})
+		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"pesan": "berhasil di hapus"})
+	c.JSON(http.StatusOK, gin.H{"pesan": "Berhasil dihapus"})
+
 }
