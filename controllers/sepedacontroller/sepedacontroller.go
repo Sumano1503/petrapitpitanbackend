@@ -67,12 +67,12 @@ func Update(c *gin.Context) {
 	}
 
 	if(sepeda.Status == 1){
-		if models.DB.Model(&sepedaHalte).Where("id = ?", id).Update("status", "Unavailable").RowsAffected == 0 {
+		if models.DB.Model(&sepedaHalte).Where("id_sepeda = ?", id).Update("status", "unavailable").RowsAffected == 0 {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "TIDAK DAPAT MENGUPDATE"})
 			return 
 		}
 	}else{
-		if models.DB.Model(&sepedaHalte).Where("id = ?", id).Update("status", "Available").RowsAffected == 0 {
+		if models.DB.Model(&sepedaHalte).Where("id_sepeda = ?", id).Update("status", "available").RowsAffected == 0 {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "TIDAK DAPAT MENGUPDATE"})
 			return 
 		}
