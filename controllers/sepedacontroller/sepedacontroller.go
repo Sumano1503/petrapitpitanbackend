@@ -52,6 +52,7 @@ func Create(c *gin.Context) {
 
 func Update(c *gin.Context) {
 	var sepeda models.Sepeda
+	var sepedaHalte models.DetailSepedaHalte
 
 	id := c.Param("id")
 
@@ -64,6 +65,20 @@ func Update(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "TIDAK DAPAT MENGUPDATE"})
 		return 
 	}
+
+	if(sepeda.Status == 1){
+		if models.DB.Model(&sepedaHalte).Where("id = ?", id).Update("status", "Unavailable").RowsAffected == 0 {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "TIDAK DAPAT MENGUPDATE"})
+			return 
+		}
+	}else{
+		if models.DB.Model(&sepedaHalte).Where("id = ?", id).Update("status", "Available").RowsAffected == 0 {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "TIDAK DAPAT MENGUPDATE"})
+			return 
+		}
+	}
+
+
 
 	c.JSON(http.StatusOK, gin.H{"pesan": "berhasil di perbahaarui"})
 }

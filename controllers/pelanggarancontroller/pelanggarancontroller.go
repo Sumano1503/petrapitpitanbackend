@@ -3,6 +3,7 @@ package pelanggarancontroller
 import (
 	"encoding/json"
 	"net/http"
+	"time"
 
 	"github.com/Sumano1503/petrapitpitanbackend/models"
 	"github.com/gin-gonic/gin"
@@ -56,7 +57,8 @@ func Create(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
 	}
-
+	waktu:= time.Now()
+	pelanggaran.Tanggal = waktu.Format("02/01/2006")
 	models.DB.Create(&pelanggaran)
 	c.JSON(http.StatusOK, gin.H{"pelanggaran": pelanggaran})
 }
